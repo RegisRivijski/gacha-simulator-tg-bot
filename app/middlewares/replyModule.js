@@ -13,7 +13,7 @@ export default async function replyModule(ctx, next) {
   } = ctx.state.data;
 
   if (gifBeforeMessage?.media && media?.mediaType === MEDIA_TYPE_PHOTO) {
-    telegrafReplyHelper.gifBeforeMessage({
+    telegrafReplyHelper.replyGifBeforeMessage({
       ctx,
       messageTemplate,
       media,

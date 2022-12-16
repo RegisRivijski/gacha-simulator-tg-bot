@@ -15,7 +15,7 @@ export function editMediaWithCaption({
   });
 }
 
-export function gifBeforeMessage({
+export function replyGifBeforeMessage({
   ctx,
   messageTemplate,
   media,
@@ -25,15 +25,13 @@ export function gifBeforeMessage({
     caption: 'test',
     parse_mode: 'HTML',
   })
-    .then((sentMessage) => {
-      return delay(gifBeforeMessage.ttl)
-        .then(() => editMediaWithCaption({
-          ctx,
-          sentMessage,
-          media,
-          messageTemplate,
-        }));
-    });
+    .then((sentMessage) => delay(gifBeforeMessage.ttl)
+      .then(() => editMediaWithCaption({
+        ctx,
+        sentMessage,
+        media,
+        messageTemplate,
+      })));
 }
 
 export function messageAfterSticker({
@@ -46,5 +44,5 @@ export function messageAfterSticker({
   })
     .then(() => ctx.reply(messageTemplate, {
       parse_mode: 'HTML',
-    }))
+    }));
 }

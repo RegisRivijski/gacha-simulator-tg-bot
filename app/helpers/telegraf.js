@@ -12,12 +12,12 @@ export function getDataByChatId(axiosRequest) {
     ctx.state.data = await axiosRequest(getChatId(ctx))
       .then(({ data }) => data);
     await next();
-  }
+  };
 }
 
 export function getDataByChatIdAndPage(axiosRequest) {
   return async function (ctx, next) {
     ctx.state.data = await axiosRequest(getChatId(ctx));
     await next();
-  }
+  };
 }
