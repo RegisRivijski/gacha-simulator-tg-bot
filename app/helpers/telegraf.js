@@ -8,7 +8,7 @@ export function getChatId(ctx) {
 }
 
 export function getDataByChatId(axiosRequest) {
-  return async function (ctx, next) {
+  return async (ctx, next) => {
     ctx.state.data = await axiosRequest(getChatId(ctx))
       .then(({ data }) => data);
     await next();
@@ -16,7 +16,7 @@ export function getDataByChatId(axiosRequest) {
 }
 
 export function getDataByChatIdAndPage(axiosRequest) {
-  return async function (ctx, next) {
+  return async (ctx, next) => {
     ctx.state.data = await axiosRequest(getChatId(ctx));
     await next();
   };
