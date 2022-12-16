@@ -41,7 +41,7 @@ export default async function dataValidator(ctx, next) {
   }
 
   if (fields.length) {
-    await updateUserData(chatId, fields);
+    updateUserData(chatId, fields);
   }
 
   await next();
