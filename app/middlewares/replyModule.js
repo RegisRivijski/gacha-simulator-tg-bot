@@ -14,7 +14,7 @@ export default async function replyModule(ctx, next) {
 
   switch (true) {
     case Boolean(gifBeforeMessage?.media && media?.mediaType === MEDIA_TYPE_PHOTO):
-      telegrafReplyHelper.replyGifBeforeMessage({
+      await telegrafReplyHelper.replyGifBeforeMessage({
         ctx,
         messageTemplate,
         media,
@@ -22,19 +22,19 @@ export default async function replyModule(ctx, next) {
       });
       break;
     case Boolean(media?.mediaType === MEDIA_TYPE_STICKER):
-      telegrafReplyHelper.messageAfterSticker({
+      await telegrafReplyHelper.messageAfterSticker({
         ctx,
         messageTemplate,
         media,
       });
       break;
     case Boolean(messageTemplate):
-      ctx.reply(messageTemplate, {
+      await ctx.reply(messageTemplate, {
         parse_mode: 'HTML',
       }, telegrafReplyHelper.makeMarkupTelegrafButtons(media?.mediaMarkupButtons));
       break;
     default:
-      ctx.replyWithChatAction('typing');
+      await ctx.replyWithChatAction('typing');
   }
 
   await next();

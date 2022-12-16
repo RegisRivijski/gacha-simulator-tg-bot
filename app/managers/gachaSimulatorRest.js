@@ -29,3 +29,8 @@ export async function usersWish(chatId) {
 export async function usersWishX10(chatId) {
   return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/wish-x10`);
 }
+export async function updateUserData(chatId, fields) {
+  return reqInstance.put(`${gachaSimulatorRest}/user/${chatId}`, {
+    fields,
+  });
+}

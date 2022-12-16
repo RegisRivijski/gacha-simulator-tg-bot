@@ -1,6 +1,6 @@
 import errorHandler from '../middlewares/errorHandler.js';
 import replyModule from '../middlewares/replyModule.js';
-import userValidator from '../middlewares/userValidator.js';
+import dataValidator from '../middlewares/dataValidator.js';
 
 import { getDataByChatId, getDataByChatIdAndPage } from '../helpers/telegraf.js';
 
@@ -32,4 +32,4 @@ export default (bot) => bot
   .command('primogems', getDataByChatId(usersPrimogems))
 
   .use(replyModule)
-  .use(userValidator);
+  .use(dataValidator);
