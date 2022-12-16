@@ -39,9 +39,7 @@ export function messageAfterSticker({
   messageTemplate,
   media,
 }) {
-  ctx.replyWithSticker({
-    source: media.media,
-  })
+  return ctx.replyWithSticker(media.media)
     .then(() => ctx.reply(messageTemplate, {
       parse_mode: 'HTML',
     }));
