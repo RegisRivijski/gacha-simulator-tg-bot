@@ -9,9 +9,7 @@ export function editMediaWithCaption({
 }) {
   return ctx.telegram.editMessageMedia(getChatId(ctx), sentMessage.message_id, null, {
     type: media.mediaType,
-    media: {
-      source: media.media,
-    },
+    media: media.media,
     caption: messageTemplate,
     parse_mode: 'HTML',
   });
@@ -23,9 +21,7 @@ export function gifBeforeMessage({
   media,
   gifBeforeMessage,
 }) {
-  return ctx.replyWithAnimation({
-    source: gifBeforeMessage.media,
-  }, {
+  return ctx.replyWithAnimation(gifBeforeMessage.media, {
     caption: 'test',
     parse_mode: 'HTML',
   })

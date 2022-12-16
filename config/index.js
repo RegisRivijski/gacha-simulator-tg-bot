@@ -13,8 +13,8 @@ export default {
   },
   rest: {
     gachaSimulatorRest: {
-      port: process.env.GACHA_SIMULATOR_REST_HOST,
-      host: process.env.GACHA_SIMULATOR_REST_PORT,
+      port: process.env.GACHA_SIMULATOR_REST_PORT,
+      host: process.env.GACHA_SIMULATOR_REST_HOST,
     },
   },
 };
