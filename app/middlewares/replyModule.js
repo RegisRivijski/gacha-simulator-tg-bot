@@ -25,8 +25,10 @@ export default async function replyModule(ctx, next) {
       messageTemplate,
       media,
     });
-  } else {
+  } else if (messageTemplate) {
     ctx.reply(messageTemplate);
+  } else {
+    ctx.replyWithChatAction('typing');
   }
 
   await next();
