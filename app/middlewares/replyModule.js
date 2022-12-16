@@ -34,7 +34,7 @@ export default async function replyModule(ctx, next) {
       }, telegrafReplyHelper.makeMarkupTelegrafButtons(media?.mediaMarkupButtons));
       break;
     default:
-      await ctx.replyWithChatAction('typing');
+      ctx.replyWithChatAction('typing');
   }
 
   await next();
