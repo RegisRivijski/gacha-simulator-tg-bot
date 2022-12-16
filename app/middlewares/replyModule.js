@@ -12,25 +12,29 @@ export default async function replyModule(ctx, next) {
     gifBeforeMessage,
   } = ctx.state.data;
 
-  if (gifBeforeMessage?.media && media?.mediaType === MEDIA_TYPE_PHOTO) {
-    telegrafReplyHelper.replyGifBeforeMessage({
-      ctx,
-      messageTemplate,
-      media,
-      gifBeforeMessage,
-    });
-  } else if (media?.mediaType === MEDIA_TYPE_STICKER) {
-    telegrafReplyHelper.messageAfterSticker({
-      ctx,
-      messageTemplate,
-      media,
-    });
-  } else if (messageTemplate) {
-    ctx.reply(messageTemplate, {
-      parse_mode: 'HTML',
-    });
-  } else {
-    ctx.replyWithChatAction('typing');
+  switch (true) {
+    case Boolean(gifBeforeMessage?.media && media?.mediaType === MEDIA_TYPE_PHOTO):
+      telegrafReplyHelper.replyGifBeforeMessage({
+        ctx,
+        messageTemplate,
+        media,
+        gifBeforeMessage,
+      });
+      break;
+    case Boolean(media?.mediaType === MEDIA_TYPE_STICKER):
+      telegrafReplyHelper.messageAfterSticker({
+        ctx,
+        messageTemplate,
+        media,
+      });
+      break;
+    case Boolean(messageTemplate):
+      ctx.reply(messageTemplate, {
+        parse_mode: 'HTML',
+      }, telegrafReplyHelper.makeMarkupTelegrafButtons(media?.mediaMarkupButtons));
+      break;
+    default:
+      ctx.replyWithChatAction('typing');
   }
 
   await next();

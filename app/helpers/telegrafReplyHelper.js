@@ -1,5 +1,17 @@
+import { Markup } from 'telegraf';
+
 import { getChatId } from './telegraf.js';
 import delay from './delayHelper.js';
+
+export function makeMarkupTelegrafButtons(mediaMarkupButtons) {
+  if (!mediaMarkupButtons?.length) {
+    return [];
+  }
+  return Markup.inlineKeyboard(
+    mediaMarkupButtons.map(({ message, data }) => Markup.button.callback(message, data)),
+  )
+    .resize();
+}
 
 export function editMediaWithCaption({
   ctx,
@@ -12,7 +24,7 @@ export function editMediaWithCaption({
     media: media.media,
     caption: messageTemplate,
     parse_mode: 'HTML',
-  });
+  }, { ...makeMarkupTelegrafButtons(media?.mediaMarkupButtons) });
 }
 
 export function replyGifBeforeMessage({
