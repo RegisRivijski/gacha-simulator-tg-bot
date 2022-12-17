@@ -1,5 +1,6 @@
 import _ from 'lodash';
-import { updateUserData } from '../managers/gachaSimulatorRest.js';
+import errorHandler from '../helpers/errorHandler.js';
+import { addGroupChat, updateUserData } from '../managers/gachaSimulatorRest.js';
 
 export default async function dataValidator(ctx, next) {
   const {
@@ -19,29 +20,37 @@ export default async function dataValidator(ctx, next) {
   const groupTitle = _.result(context, 'chat.title');
   const groupUsername = _.result(context, 'chat.username');
 
-  const fields = [];
+  const fieldsForUpdateUserData = [];
 
   if (userData.firstName !== firstName) {
-    fields.push({
+    fieldsForUpdateUserData.push({
       key: 'firstName',
       value: firstName,
     });
   }
   if (userData.lastName !== lastName) {
-    fields.push({
+    fieldsForUpdateUserData.push({
       key: 'lastName',
       value: lastName,
     });
   }
   if (userData.username !== username) {
-    fields.push({
+    fieldsForUpdateUserData.push({
       key: 'username',
       value: username,
     });
   }
-
-  if (fields.length) {
-    updateUserData(chatId, fields);
+  if (!userData.groupChatIds.includes(groupChatId)) {
+    fieldsForUpdateUserData.push({
+      key: 'groupChatIds',
+      value: [...userData.groupChatIds, groupChatId],
+    });
+    addGroupChat(groupChatId, { groupTitle, groupUsername })
+      .catch(errorHandler);
+  }
+  if (fieldsForUpdateUserData.length) {
+    updateUserData(chatId, fieldsForUpdateUserData)
+      .catch(errorHandler);
   }
 
   await next();

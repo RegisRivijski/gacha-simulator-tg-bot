@@ -11,4 +11,6 @@ export default function main() {
   // Enable graceful stop
   process.once('SIGINT', () => bot.stop('SIGINT'));
   process.once('SIGTERM', () => bot.stop('SIGTERM'));
+
+  return bot;
 }

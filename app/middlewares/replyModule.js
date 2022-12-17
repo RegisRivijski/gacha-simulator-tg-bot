@@ -4,6 +4,7 @@ import {
 } from '../constants/index.js';
 
 import * as telegrafReplyHelper from '../helpers/telegrafReplyHelper.js';
+import errorHandler from '../helpers/errorHandler.js';
 
 export default async function replyModule(ctx, next) {
   const {
@@ -19,22 +20,26 @@ export default async function replyModule(ctx, next) {
         messageTemplate,
         media,
         gifBeforeMessage,
-      });
+      })
+        .catch(errorHandler);
       break;
     case Boolean(media?.mediaType === MEDIA_TYPE_STICKER):
       telegrafReplyHelper.messageAfterSticker({
         ctx,
         messageTemplate,
         media,
-      });
+      })
+        .catch(errorHandler);
       break;
     case Boolean(messageTemplate):
       ctx.reply(messageTemplate, {
         parse_mode: 'HTML',
-      }, telegrafReplyHelper.makeMarkupTelegrafButtons(media?.mediaMarkupButtons));
+      }, telegrafReplyHelper.makeMarkupTelegrafButtons(media?.mediaMarkupButtons))
+        .catch(errorHandler);
       break;
     default:
-      ctx.replyWithChatAction('typing');
+      ctx.replyWithChatAction('typing')
+        .catch(errorHandler);
   }
 
   await next();

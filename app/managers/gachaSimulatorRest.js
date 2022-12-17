@@ -34,3 +34,14 @@ export async function updateUserData(chatId, fields) {
     fields,
   });
 }
+export async function updateGroupChat(groupChatId, fields) {
+  return reqInstance.put(`${gachaSimulatorRest}/group-chat/${groupChatId}`, {
+    fields,
+  });
+}
+export async function addGroupChat(groupChatId, { groupTitle, groupUsername }) {
+  return reqInstance.post(`${gachaSimulatorRest}/group-chat/${groupChatId}`, {
+    groupTitle,
+    groupUsername,
+  });
+}
