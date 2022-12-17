@@ -56,6 +56,7 @@ export function message({
     {
       text: messageTemplate,
       parse_mode: 'HTML',
+      disable_web_page_preview: true,
     },
     { ...makeMarkupTelegrafButtons(media?.mediaMarkupButtons) },
   );
