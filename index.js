@@ -1,3 +1,5 @@
 import app from './app/app.js';
+import appCron from './cron/app.js';
 
-app();
+const bot = app();
+appCron(bot);

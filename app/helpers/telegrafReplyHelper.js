@@ -8,7 +8,7 @@ export function makeMarkupTelegrafButtons(mediaMarkupButtons) {
     return [];
   }
   return Markup.inlineKeyboard(
-    mediaMarkupButtons.map(({ message, data }) => Markup.button.callback(message, data)),
+    mediaMarkupButtons.map((button) => Markup.button.callback(button.message, button.data)),
   )
     .resize();
 }
@@ -33,7 +33,7 @@ export function replyGifBeforeMessage({
   media,
   gifBeforeMessage,
 }) {
-  return ctx.replyWithAnimation(gifBeforeMessage.media, {
+  return ctx.telegram.sendAnimation(getChatId(ctx), gifBeforeMessage.media, {
     caption: gifBeforeMessage.mediaGifMessage,
     parse_mode: 'HTML',
   })
@@ -46,13 +46,30 @@ export function replyGifBeforeMessage({
       })));
 }
 
+export function message({
+  ctx,
+  messageTemplate,
+  media,
+}) {
+  return ctx.telegram.sendMessage(
+    getChatId(ctx),
+    {
+      text: messageTemplate,
+      parse_mode: 'HTML',
+    },
+    { ...makeMarkupTelegrafButtons(media?.mediaMarkupButtons) },
+  );
+}
+
 export function messageAfterSticker({
   ctx,
   messageTemplate,
   media,
 }) {
-  return ctx.replyWithSticker(media.media)
-    .then(() => ctx.reply(messageTemplate, {
-      parse_mode: 'HTML',
+  return ctx.telegram.sendSticker(getChatId(ctx), media.media)
+    .then(() => message({
+      ctx,
+      messageTemplate,
+      media,
     }));
 }

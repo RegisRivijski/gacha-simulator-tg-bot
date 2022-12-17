@@ -50,6 +50,7 @@ export default async function dataValidator(ctx, next) {
     addGroupChat(groupChatId, { groupTitle, groupUsername })
       .catch(errorHandler);
   }
+
   if (fieldsForUpdateUserData.length) {
     updateUserData(chatId, fieldsForUpdateUserData)
       .catch(errorHandler);

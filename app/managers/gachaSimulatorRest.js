@@ -11,37 +11,74 @@ const reqInstance = axios.create({
 
 const gachaSimulatorRest = `http://${config.rest.gachaSimulatorRest.host}:${config.rest.gachaSimulatorRest.port}`;
 
-export async function usersProfile(chatId) {
-  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/profile`);
+export function usersProfile(chatId) {
+  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/profile`)
+    .then(({ data }) => data);
 }
-export async function usersHistory(chatId, page = 0) {
-  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/history/${page}`);
+
+export function usersHistory(chatId, page = 0) {
+  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/history/${page}`)
+    .then(({ data }) => data);
 }
-export async function usersInventory(chatId) {
-  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/inventory`);
+
+export function usersInventory(chatId) {
+  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/inventory`)
+    .then(({ data }) => data);
 }
-export async function usersPrimogems(chatId) {
-  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/primogems`);
+
+export function usersPrimogems(chatId) {
+  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/primogems`)
+    .then(({ data }) => data);
 }
-export async function usersWish(chatId) {
-  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/wish`);
+
+export function usersWish(chatId) {
+  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/wish`)
+    .then(({ data }) => data);
 }
-export async function usersWishX10(chatId) {
-  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/wish-x10`);
+
+export function usersWishX10(chatId) {
+  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/wish-x10`)
+    .then(({ data }) => data);
 }
-export async function updateUserData(chatId, fields) {
+
+export function updateUserData(chatId, fields) {
   return reqInstance.put(`${gachaSimulatorRest}/user/${chatId}`, {
     fields,
-  });
+  })
+    .then(({ data }) => data);
 }
-export async function updateGroupChat(groupChatId, fields) {
+
+export function updateGroupChat(groupChatId, fields) {
   return reqInstance.put(`${gachaSimulatorRest}/group-chat/${groupChatId}`, {
     fields,
-  });
+  })
+    .then(({ data }) => data);
 }
-export async function addGroupChat(groupChatId, { groupTitle, groupUsername }) {
+
+export function addGroupChat(groupChatId, { groupTitle, groupUsername }) {
   return reqInstance.post(`${gachaSimulatorRest}/group-chat/${groupChatId}`, {
     groupTitle,
     groupUsername,
-  });
+  })
+    .then(({ data }) => data);
+}
+
+export function getAllActiveUsersWithPrimogemsLimit() {
+  return reqInstance.get(`${gachaSimulatorRest}/analytics/all-active-users-with-primogems-limit`)
+    .then(({ data }) => data);
+}
+
+export function getAllActiveUsers() {
+  return reqInstance.get(`${gachaSimulatorRest}/analytics/all-active-users`)
+    .then(({ data }) => data);
+}
+
+export function getTranslate(code, t) {
+  return reqInstance.get(`${gachaSimulatorRest}/${code}/translate?t=${t}`)
+    .then(({ data }) => data);
+}
+
+export function getUserData(chatId) {
+  return reqInstance.get(`${gachaSimulatorRest}/user/${chatId}`)
+    .then(({ data }) => data);
 }
