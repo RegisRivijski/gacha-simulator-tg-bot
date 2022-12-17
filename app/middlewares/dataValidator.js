@@ -20,6 +20,8 @@ export default async function dataValidator(ctx, next) {
   const groupTitle = _.result(context, 'chat.title');
   const groupUsername = _.result(context, 'chat.username');
 
+  const isPersonalMessage = (chatId === groupChatId && groupChatId > 0);
+
   const fieldsForUpdateUserData = [];
 
   if (userData.firstName !== firstName) {
@@ -40,7 +42,7 @@ export default async function dataValidator(ctx, next) {
       value: username,
     });
   }
-  if (!userData.groupChatIds.includes(groupChatId)) {
+  if (!isPersonalMessage && !userData.groupChatIds.includes(groupChatId)) {
     fieldsForUpdateUserData.push({
       key: 'groupChatIds',
       value: [...userData.groupChatIds, groupChatId],
