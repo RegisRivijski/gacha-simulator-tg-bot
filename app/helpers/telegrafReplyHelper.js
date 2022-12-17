@@ -27,6 +27,17 @@ export function editMediaWithCaption({
   }, { ...makeMarkupTelegrafButtons(media?.mediaMarkupButtons) });
 }
 
+export function messageWithCaption({
+  ctx,
+  media,
+  messageTemplate,
+}) {
+  return ctx.telegram.sendPhoto(getChatId(ctx), media.media, {
+    caption: messageTemplate,
+    parse_mode: 'HTML',
+  }, { ...makeMarkupTelegrafButtons(media?.mediaMarkupButtons) });
+}
+
 export function replyGifBeforeMessage({
   ctx,
   messageTemplate,

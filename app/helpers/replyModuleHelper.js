@@ -22,6 +22,14 @@ export default function replyModule({
       })
         .catch(errorHandler);
       break;
+    case Boolean(media?.mediaType === MEDIA_TYPE_PHOTO):
+      telegrafReplyHelper.messageWithCaption({
+        ctx,
+        messageTemplate,
+        media,
+      })
+        .catch(errorHandler);
+      break;
     case Boolean(media?.mediaType === MEDIA_TYPE_STICKER):
       telegrafReplyHelper.messageAfterSticker({
         ctx,
