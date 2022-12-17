@@ -34,7 +34,7 @@ export function replyGifBeforeMessage({
   gifBeforeMessage,
 }) {
   return ctx.replyWithAnimation(gifBeforeMessage.media, {
-    caption: 'test',
+    caption: gifBeforeMessage.mediaGifMessage,
     parse_mode: 'HTML',
   })
     .then((sentMessage) => delay(gifBeforeMessage.ttl)
