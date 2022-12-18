@@ -8,7 +8,12 @@ export function makeMarkupTelegrafButtons(mediaMarkupButtons) {
     return [];
   }
   return Markup.inlineKeyboard(
-    mediaMarkupButtons.map((button) => Markup.button.callback(button.message, button.data)),
+    mediaMarkupButtons.map((item) => {
+      if (Array.isArray(item)) {
+        return item.map((btn) => Markup.button.callback(btn.message, btn.data));
+      }
+      return Markup.button.callback(item.message, item.data);
+    }),
   )
     .resize();
 }

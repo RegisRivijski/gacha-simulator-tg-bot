@@ -16,6 +16,16 @@ export function usersProfile(chatId) {
     .then(({ data }) => data);
 }
 
+export function usersProfileGetPrimogems(chatId) {
+  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/profile?getPrimogems=true`)
+    .then(({ data }) => data);
+}
+
+export function usersProfileChangeBanner(chatId) {
+  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/profile?changeBanner=true`)
+    .then(({ data }) => data);
+}
+
 export function usersHistory(chatId, page = 0) {
   return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/history/${page}`)
     .then(({ data }) => data);

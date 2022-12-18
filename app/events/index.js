@@ -5,7 +5,14 @@ import dataValidator from '../middlewares/dataValidator.js';
 import { getDataByChatId, getDataByChatIdAndPage } from '../helpers/telegraf.js';
 
 import {
-  usersWish, usersWishX10, usersInventory, usersProfile, usersPrimogems, usersHistory,
+  usersWish,
+  usersWishX10,
+  usersInventory,
+  usersProfile,
+  usersPrimogems,
+  usersHistory,
+  usersProfileGetPrimogems,
+  usersProfileChangeBanner,
 } from '../managers/gachaSimulatorRest.js';
 
 export default (bot) => bot
@@ -25,7 +32,8 @@ export default (bot) => bot
 
   .action(/^hi /, getDataByChatIdAndPage(usersHistory))
   .action(/^pr /, getDataByChatId(usersProfile))
-  .action(/^pr get /, getDataByChatId(usersPrimogems))
+  .action(/^pr_get /, getDataByChatId(usersProfileGetPrimogems))
+  .action(/^pr_chng /, getDataByChatId(usersProfileChangeBanner))
   .action(/^in /, getDataByChatId(usersInventory))
 
   // Shop events
