@@ -1,12 +1,11 @@
 import { Telegraf } from 'telegraf';
 
 import config from '../config/index.js';
-import { commands, actions } from './events/index.js';
+import events from './events/index.js';
 
 export default function main() {
   const bot = new Telegraf(config.bot.API_TOKEN);
-  bot.use(commands);
-  bot.use(actions);
+  bot.use(events);
   bot.startPolling();
 
   // Enable graceful stop

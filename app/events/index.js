@@ -17,7 +17,7 @@ import {
   usersProfileChangeBanner,
 } from '../managers/gachaSimulatorRest.js';
 
-export const commands = new Composer()
+export default new Composer()
   .use(errorHandler)
 
   .command('wish', getDataByChatId(usersWish))
@@ -26,12 +26,6 @@ export const commands = new Composer()
   .command('profile', getDataByChatId(usersProfile))
   .command('history', getDataByChatId(usersHistory))
   .command('primogems', getDataByChatId(usersPrimogems))
-
-  .use(replyModule)
-  .use(dataValidator);
-
-export const actions = new Composer()
-  .use(errorHandler)
 
   .action(/^wi /, getDataByChatId(usersWish))
   .action(/^wi10 /, getDataByChatId(usersWishX10))
