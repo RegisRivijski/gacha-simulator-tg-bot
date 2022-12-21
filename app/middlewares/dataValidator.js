@@ -42,6 +42,12 @@ export default async function dataValidator(ctx, next) {
       value: username,
     });
   }
+  if (!userData.languageCode && context.language_code) {
+    fieldsForUpdateUserData.push({
+      key: 'languageCode',
+      value: context.language_code,
+    });
+  }
   if (!isPersonalMessage && !userData.groupChatIds.includes(groupChatId)) {
     fieldsForUpdateUserData.push({
       key: 'groupChatIds',
