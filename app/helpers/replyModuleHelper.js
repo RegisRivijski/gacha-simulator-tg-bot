@@ -12,42 +12,37 @@ export default function replyModule({
   media,
   gifBeforeMessage,
 }) {
-  switch (true) {
-    case Boolean(gifBeforeMessage?.media && media?.mediaType === MEDIA_TYPE_PHOTO):
-      telegrafReplyHelper.replyGifBeforeMessage({
-        ctx,
-        messageTemplate,
-        media,
-        gifBeforeMessage,
-      })
-        .catch(errorHandler);
-      break;
-    case Boolean(media?.mediaType === MEDIA_TYPE_PHOTO):
-      telegrafReplyHelper.messageWithCaption({
-        ctx,
-        messageTemplate,
-        media,
-      })
-        .catch(errorHandler);
-      break;
-    case Boolean(media?.mediaType === MEDIA_TYPE_STICKER):
-      telegrafReplyHelper.messageAfterSticker({
-        ctx,
-        messageTemplate,
-        media,
-      })
-        .catch(errorHandler);
-      break;
-    case Boolean(messageTemplate):
-      telegrafReplyHelper.message({
-        ctx,
-        messageTemplate,
-        media,
-      })
-        .catch(errorHandler);
-      break;
-    default:
-      ctx.replyWithChatAction('typing')
-        .catch(errorHandler);
+  if (gifBeforeMessage?.media && media?.mediaType === MEDIA_TYPE_PHOTO) {
+    telegrafReplyHelper.replyGifBeforeMessage({
+      ctx,
+      messageTemplate,
+      media,
+      gifBeforeMessage,
+    })
+      .catch(errorHandler);
+  } else if (media?.mediaType === MEDIA_TYPE_PHOTO) {
+    telegrafReplyHelper.messageWithCaption({
+      ctx,
+      messageTemplate,
+      media,
+    })
+      .catch(errorHandler);
+  } else if (media?.mediaType === MEDIA_TYPE_STICKER) {
+    telegrafReplyHelper.messageAfterSticker({
+      ctx,
+      messageTemplate,
+      media,
+    })
+      .catch(errorHandler);
+  } else if (messageTemplate) {
+    telegrafReplyHelper.message({
+      ctx,
+      messageTemplate,
+      media,
+    })
+      .catch(errorHandler);
+  } else {
+    ctx.replyWithChatAction('typing')
+      .catch(errorHandler);
   }
 }
