@@ -4,6 +4,7 @@ import {
 
 import { getContext } from '../helpers/telegraf.js';
 import errorHandlerHelper from '../helpers/errorHandler.js';
+import { howManyMinutesPast } from '../helpers/timeHelper.js';
 
 export async function errorHandler(ctx, next) {
   try {
@@ -15,9 +16,9 @@ export async function errorHandler(ctx, next) {
 
 export async function ignoreOldMessages(ctx, next) {
   const context = getContext(ctx);
-  const messageDate = Number(context.date) * 1000;
-  const minutes = Math.floor(((new Date()).getTime() - messageDate) / 60000);
-  if (!minutes > IGNORE_OLD_MESSAGE_MINUTES) {
+  const tgDate = Number(context.date) * 1000;
+  const minutes = howManyMinutesPast(tgDate);
+  if (minutes < IGNORE_OLD_MESSAGE_MINUTES) {
     await next();
   }
 }

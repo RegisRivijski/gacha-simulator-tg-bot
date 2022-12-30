@@ -1,10 +1,14 @@
-import redis from '../modules/Redis.js';
+import config from '../../config/index.js';
+import Redis from '../classes/Redis.js';
 
 import {
   MESSAGE_RATE_LIMIT_TTL,
+  BANNER_RATE_LIMIT_TTL,
 } from '../constants/index.js';
 
 import { getUserData } from '../helpers/telegraf.js';
+
+const redis = new Redis(config.db.redis);
 
 export async function commandRateLimiter(ctx, next) {
   const {
@@ -37,7 +41,7 @@ export async function wishRateLimiter(ctx, next) {
     const currentDate = String(new Date().getTime());
 
     await redis.set(key, currentDate, {
-      EX: 6,
+      EX: BANNER_RATE_LIMIT_TTL,
     });
 
     ctx.state.rateLimiterKey = key;
