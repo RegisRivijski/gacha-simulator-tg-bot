@@ -1,5 +1,6 @@
-import _ from 'lodash';
 import errorHandler from '../helpers/errorHandler.js';
+
+import { getUserData } from '../helpers/telegraf.js';
 import { addGroupChat, updateUserData } from '../managers/gachaSimulatorRest.js';
 
 export default async function dataValidator(ctx, next) {
@@ -7,20 +8,17 @@ export default async function dataValidator(ctx, next) {
     userData,
   } = ctx.state.data;
 
-  const context = !ctx.update.callback_query
-    ? ctx.update.message
-    : ctx.update.callback_query;
-
-  const chatId = _.result(context, 'from.id');
-  const firstName = _.result(context, 'from.first_name');
-  const lastName = _.result(context, 'from.last_name');
-  const username = _.result(context, 'username');
-
-  const groupChatId = _.result(context, 'chat.id');
-  const groupTitle = _.result(context, 'chat.title');
-  const groupUsername = _.result(context, 'chat.username');
-
-  const isPersonalMessage = (chatId === groupChatId && groupChatId > 0);
+  const {
+    chatId,
+    firstName,
+    lastName,
+    username,
+    groupChatId,
+    groupTitle,
+    groupUsername,
+    languageCode,
+    isPersonalMessage,
+  } = getUserData(ctx);
 
   const fieldsForUpdateUserData = [];
 
@@ -42,10 +40,10 @@ export default async function dataValidator(ctx, next) {
       value: username,
     });
   }
-  if (!userData.languageCode && context.language_code) {
+  if (!userData.languageCode && languageCode) {
     fieldsForUpdateUserData.push({
       key: 'languageCode',
-      value: context.language_code,
+      value: languageCode,
     });
   }
   if (!isPersonalMessage && !userData.groupChatIds.includes(groupChatId)) {
