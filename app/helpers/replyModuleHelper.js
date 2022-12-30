@@ -3,8 +3,10 @@ import {
   MEDIA_TYPE_STICKER,
 } from '../constants/index.js';
 
-import * as telegrafReplyHelper from './telegrafReplyHelper.js';
 import errorHandler from './errorHandler.js';
+import * as telegrafReplyHelper from './telegrafReplyHelper.js';
+
+import { isAction } from './telegraf.js';
 
 export default function replyModule({
   ctx,
@@ -12,6 +14,11 @@ export default function replyModule({
   media,
   gifBeforeMessage,
 }) {
+  if (isAction(ctx) && media?.mediaMarkupButtonsRemoveAfterClick) {
+    ctx.editMessageReplyMarkup()
+      .catch(errorHandler);
+  }
+
   if (gifBeforeMessage?.media && media?.mediaType === MEDIA_TYPE_PHOTO) {
     telegrafReplyHelper.replyGifBeforeMessage({
       ctx,

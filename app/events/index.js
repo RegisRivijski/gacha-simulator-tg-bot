@@ -26,19 +26,19 @@ export default new Composer()
   .command('wish', getDataByChatId(usersWish), wishRateLimiter)
   .command('wish10', getDataByChatId(usersWishX10), wishRateLimiter)
 
-  .action(/^wi /, getDataByChatId(usersWish, wishRateLimiter))
-  .action(/^wi10 /, getDataByChatId(usersWishX10), wishRateLimiter)
+  .action(/^(wi )/, getDataByChatId(usersWish, wishRateLimiter))
+  .action(/^(wi10 )/, getDataByChatId(usersWishX10), wishRateLimiter)
 
   .command('inventory', getDataByChatId(usersInventory))
-  .action(/^in /, getDataByChatId(usersInventory))
+  .action(/^(in )/, getDataByChatId(usersInventory))
 
   .command('profile', getDataByChatId(usersProfile))
-  .action(/^pr /, getDataByChatId(usersProfile))
-  .action(/^pr_get /, getDataByChatId(usersProfileGetPrimogems))
-  .action(/^pr_chng /, getDataByChatId(usersProfileChangeBanner))
+  .action(/^(pr )/, getDataByChatId(usersProfile))
+  .action(/^(pr_get )/, getDataByChatId(usersProfileGetPrimogems))
+  .action(/^(pr_chng )/, getDataByChatId(usersProfileChangeBanner))
 
   .command('history', getDataByChatId(usersHistory))
-  .action(/^hi /, getDataByChatIdAndPage(usersHistory))
+  .action(/^(hi )/, getDataByChatIdAndPage(usersHistory))
 
   .command('primogems', getDataByChatId(usersPrimogems))
 
