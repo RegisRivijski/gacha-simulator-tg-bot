@@ -14,6 +14,9 @@ export default function replyModule({
   media,
   gifBeforeMessage,
 }) {
+  ctx.replyWithChatAction('typing')
+    .catch(errorHandler);
+
   if (isAction(ctx) && media?.mediaMarkupButtonsRemoveAfterClick) {
     ctx.editMessageReplyMarkup()
       .catch(errorHandler);
@@ -47,9 +50,6 @@ export default function replyModule({
       messageTemplate,
       media,
     })
-      .catch(errorHandler);
-  } else {
-    ctx.replyWithChatAction('typing')
       .catch(errorHandler);
   }
 }

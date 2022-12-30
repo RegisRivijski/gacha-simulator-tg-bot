@@ -23,11 +23,11 @@ export default new Composer()
   .use(ignoreOldMessages)
   .use(commandRateLimiter)
 
-  .command('wish', getDataByChatId(usersWish), wishRateLimiter)
-  .command('wish10', getDataByChatId(usersWishX10), wishRateLimiter)
+  .command('wish', wishRateLimiter, getDataByChatId(usersWish))
+  .command('wish10', wishRateLimiter, getDataByChatId(usersWishX10))
 
-  .action(/^(wi )/, getDataByChatId(usersWish, wishRateLimiter))
-  .action(/^(wi10 )/, getDataByChatId(usersWishX10), wishRateLimiter)
+  .action(/^(wi )/, wishRateLimiter, getDataByChatId(usersWish))
+  .action(/^(wi10 )/, wishRateLimiter, getDataByChatId(usersWishX10))
 
   .command('inventory', getDataByChatId(usersInventory))
   .action(/^(in )/, getDataByChatId(usersInventory))
