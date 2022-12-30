@@ -7,15 +7,18 @@ export default class Redis {
     this.client = createClient(config);
   }
 
-  async get(...args) {
-    await this.client.connect();
-    await this.client.get(...args);
-    await this.client.disconnect();
+  get(...args) {
+    return this.client.connect()
+      .then(() => this.client.get(...args))
+      .then((data) => {
+        this.client.disconnect();
+        return data;
+      });
   }
 
-  async set(...args) {
-    await this.client.connect();
-    await this.client.set(...args);
-    await this.client.disconnect();
+  set(...args) {
+    return this.client.connect()
+      .then(() => this.client.set(...args))
+      .then(() => this.client.disconnect());
   }
 }
