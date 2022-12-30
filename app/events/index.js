@@ -2,7 +2,7 @@ import { Composer } from 'telegraf';
 
 import replyModule from '../middlewares/replyModule.js';
 import dataValidator from '../middlewares/dataValidator.js';
-import { wishRateLimiter } from '../middlewares/rateLimiters.js';
+import { commandRateLimiter, wishRateLimiter } from '../middlewares/rateLimiters.js';
 import { errorHandler, ignoreOldMessages } from '../middlewares/events.js';
 
 import { getDataByChatId, getDataByChatIdAndPage } from '../helpers/telegraf.js';
@@ -21,6 +21,7 @@ import {
 export default new Composer()
   .use(errorHandler)
   .use(ignoreOldMessages)
+  .use(commandRateLimiter)
 
   .command('wish', wishRateLimiter, getDataByChatId(usersWish))
   .command('wish10', wishRateLimiter, getDataByChatId(usersWishX10))
