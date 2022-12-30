@@ -11,6 +11,11 @@ export default {
   bot: {
     API_TOKEN: process.env.SANDBOX_TG_BOT_API_TOKEN,
   },
+  db: {
+    redis: {
+      url: process.env.REDIS_URL,
+    },
+  },
   rest: {
     gachaSimulatorRest: {
       apiKey: process.env.GACHA_SIMULATOR_REST_API_KEY,
