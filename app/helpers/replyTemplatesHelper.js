@@ -8,7 +8,7 @@ import * as telegrafReplyHelper from './telegrafReplyHelper.js';
 
 import { isAction } from './telegraf.js';
 
-export default function replyModule({
+export default function replyByTemplate({
   ctx,
   messageTemplate,
   media,

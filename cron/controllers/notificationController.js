@@ -4,7 +4,7 @@ import {
 
 import delay from '../../app/helpers/delayHelper.js';
 import errorHandler from '../../app/helpers/errorHandler.js';
-import replyModuleHelper from '../../app/helpers/replyModuleHelper.js';
+import replyByTemplate from '../../app/helpers/replyTemplatesHelper.js';
 
 import {
   getAllActiveUsersWithPrimogemsLimit,
@@ -31,7 +31,7 @@ export function primogemsLimit(bot) {
         if (additionalData?.primogemsGetMaxLimit) {
           const messageTemplate = await getTranslate(userData.languageCode, 'cron.maxPrimogems');
 
-          await replyModuleHelper({
+          await replyByTemplate({
             ctx: bot,
             messageTemplate,
             media: {
@@ -68,7 +68,7 @@ export function howManyUserCanBuy(bot) {
           const messageTemplate = await getTranslate(userData.languageCode, 'cron.fatesCount')
             .then((message) => message.replace('{fatesCount}', String(additionalData.canBuyWishes)));
 
-          await replyModuleHelper({
+          await replyByTemplate({
             ctx: bot,
             messageTemplate,
             media: {

@@ -1,4 +1,4 @@
-import replyModuleHelper from '../helpers/replyModuleHelper.js';
+import replyByTemplate from '../helpers/replyTemplatesHelper.js';
 
 export default async function replyModule(ctx, next) {
   const {
@@ -7,7 +7,7 @@ export default async function replyModule(ctx, next) {
     gifBeforeMessage,
   } = ctx.state.data;
 
-  replyModuleHelper({
+  replyByTemplate({
     ctx,
     messageTemplate,
     media,
