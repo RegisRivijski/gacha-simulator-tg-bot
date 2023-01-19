@@ -4,17 +4,19 @@ import { getChatId } from './telegraf.js';
 import delay from './delayHelper.js';
 
 export function makeMarkupTelegrafButtons(mediaMarkupButtons) {
+  return mediaMarkupButtons.map((item) => {
+    if (Array.isArray(item)) {
+      return item.map((btn) => Markup.button.callback(btn.message, btn.data));
+    }
+    return Markup.button.callback(item.message, item.data);
+  });
+}
+
+export function makeMarkupInlineKeyboard(mediaMarkupButtons) {
   if (!mediaMarkupButtons?.length) {
     return [];
   }
-  return Markup.inlineKeyboard(
-    mediaMarkupButtons.map((item) => {
-      if (Array.isArray(item)) {
-        return item.map((btn) => Markup.button.callback(btn.message, btn.data));
-      }
-      return Markup.button.callback(item.message, item.data);
-    }),
-  )
+  return Markup.inlineKeyboard(makeMarkupTelegrafButtons(mediaMarkupButtons))
     .resize();
 }
 
@@ -29,7 +31,7 @@ export function editMediaWithCaption({
     media: media.media,
     caption: messageTemplate,
     parse_mode: 'HTML',
-  }, { ...makeMarkupTelegrafButtons(media?.mediaMarkupButtons) });
+  }, { ...makeMarkupInlineKeyboard(media?.mediaMarkupButtons) });
 }
 
 export function messageWithCaption({
@@ -40,7 +42,7 @@ export function messageWithCaption({
   return ctx.telegram.sendPhoto(getChatId(ctx), media.media, {
     caption: messageTemplate,
     parse_mode: 'HTML',
-  }, { ...makeMarkupTelegrafButtons(media?.mediaMarkupButtons) });
+  }, { ...makeMarkupInlineKeyboard(media?.mediaMarkupButtons) });
 }
 
 export function replyGifBeforeMessage({
@@ -74,7 +76,7 @@ export function message({
       parse_mode: 'HTML',
       disable_web_page_preview: true,
     },
-    { ...makeMarkupTelegrafButtons(media?.mediaMarkupButtons) },
+    { ...makeMarkupInlineKeyboard(media?.mediaMarkupButtons) },
   );
 }
 
