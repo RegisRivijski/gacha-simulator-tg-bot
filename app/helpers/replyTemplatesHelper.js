@@ -21,26 +21,31 @@ export default function replyByTemplate({
     {
       condition: isAction(ctx) && media?.mediaMarkupButtonsRemoveAfterClick,
       template: ctx.editMessageReplyMarkup,
+      makeBreak: false,
     },
     {
       condition: gifBeforeMessage?.media && media?.mediaType === MEDIA_TYPE_PHOTO,
       template: telegrafReplyHelper.replyGifBeforeMessage,
+      makeBreak: true,
     },
     {
       condition: media?.mediaType === MEDIA_TYPE_PHOTO,
       template: telegrafReplyHelper.messageWithCaption,
+      makeBreak: true,
     },
     {
       condition: media?.mediaType === MEDIA_TYPE_STICKER,
       template: telegrafReplyHelper.messageAfterSticker,
+      makeBreak: true,
     },
     {
       condition: messageTemplate,
       template: telegrafReplyHelper.message,
+      makeBreak: true,
     },
   ];
 
-  for (const { condition, template } of templates) {
+  for (const { condition, template, makeBreak } of templates) {
     if (condition) {
       template({
         ctx,
@@ -49,7 +54,9 @@ export default function replyByTemplate({
         gifBeforeMessage,
       })
         .catch(errorHandler);
-      break;
+      if (makeBreak) {
+        break;
+      }
     }
   }
 }
