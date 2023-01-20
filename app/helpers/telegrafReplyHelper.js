@@ -92,3 +92,11 @@ export function messageAfterSticker({
       media,
     }));
 }
+
+export function editMessageReplyMarkup({ ctx }) {
+  return ctx.editMessageReplyMarkup();
+}
+
+export function replyWithChatActionTyping({ ctx }) {
+  return ctx.replyWithChatAction('typing');
+}
