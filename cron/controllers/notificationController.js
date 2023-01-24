@@ -3,7 +3,6 @@ import {
 } from '../../app/constants/index.js';
 
 import delay from '../../app/helpers/delayHelper.js';
-import errorHandler from '../../app/helpers/errorHandler.js';
 import replyByTemplate from '../../app/helpers/replyTemplatesHelper.js';
 
 import {
@@ -22,14 +21,22 @@ export function primogemsLimit(bot) {
       const allUsersDataIds = await getAllActiveUsersWithPrimogemsLimit();
 
       for await (const chatId of allUsersDataIds) {
-        const userData = await getUserData(chatId);
+        const userData = await getUserData(chatId)
+          .catch((e) => {
+            console.error('[ERROR] CRON notificationController primogemsLimit getUserData:', e.message);
+            return {};
+          });
         const { additionalData } = userData;
 
         // eslint-disable-next-line no-param-reassign
         bot.state.chatId = chatId;
 
         if (additionalData?.primogemsGetMaxLimit) {
-          const messageTemplate = await getTranslate(userData.languageCode, 'cron.maxPrimogems');
+          const messageTemplate = await getTranslate(userData.languageCode, 'cron.maxPrimogems')
+            .catch((e) => {
+              console.error('[ERROR] CRON notificationController primogemsLimit getTranslate:', e.message);
+              return '';
+            });
 
           await replyByTemplate({
             ctx: bot,
@@ -38,13 +45,15 @@ export function primogemsLimit(bot) {
               media,
               mediaType,
             },
-          });
-
-          await delay(5000);
+          })
+            .then(() => delay(5000))
+            .catch((e) => {
+              console.error('[ERROR] CRON notificationController primogemsLimit replyByTemplate:', e.message);
+            });
         }
       }
     } catch (e) {
-      errorHandler(e);
+      console.error('[FATAL ERROR] CRON notificationController primogemsLimit:', e.message);
     }
   };
 }
@@ -58,7 +67,11 @@ export function howManyUserCanBuy(bot) {
       const allUsersDataIds = await getAllActiveUsers();
 
       for await (const chatId of allUsersDataIds) {
-        const userData = await getUserData(chatId);
+        const userData = await getUserData(chatId)
+          .catch((e) => {
+            console.error('[ERROR] CRON notificationController howManyUserCanBuy getUserData:', e.message);
+            return {};
+          });
         const { additionalData } = userData;
 
         // eslint-disable-next-line no-param-reassign
@@ -66,7 +79,11 @@ export function howManyUserCanBuy(bot) {
 
         if (additionalData?.canBuyWishes > 10 && additionalData?.hoursFromLastWish >= 72) {
           const messageTemplate = await getTranslate(userData.languageCode, 'cron.fatesCount')
-            .then((message) => message.replace('{fatesCount}', String(additionalData.canBuyWishes)));
+            .then((message) => message.replace('{fatesCount}', String(additionalData.canBuyWishes)))
+            .catch((e) => {
+              console.error('[ERROR] CRON notificationController howManyUserCanBuy getTranslate:', e.message);
+              return '';
+            });
 
           await replyByTemplate({
             ctx: bot,
@@ -75,13 +92,15 @@ export function howManyUserCanBuy(bot) {
               media,
               mediaType,
             },
-          });
-
-          await delay(5000);
+          })
+            .then(() => delay(5000))
+            .catch((e) => {
+              console.error('[ERROR] CRON notificationController howManyUserCanBuy replyByTemplate:', e.message);
+            });
         }
       }
     } catch (e) {
-      errorHandler(e);
+      console.error('[FATAL ERROR] CRON notificationController howManyUserCanBuy:', e.message);
     }
   };
 }
