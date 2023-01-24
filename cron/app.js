@@ -12,7 +12,10 @@ export default function main(bot) {
     const cron = crons.find((data) => data.id === job.id);
     if (cron) {
       console.info('[INFO]', job.id, 'is started');
-      cron.process(bot);
+      cron.process(bot)
+        .then(() => {
+          console.info('[INFO]', job.id, 'is finished');
+        });
     } else {
       console.warn('[WARN]', job.id, 'is not found');
     }
