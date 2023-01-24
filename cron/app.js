@@ -9,10 +9,10 @@ const queue = new Queue(config.bot.API_TOKEN, {
 
 export default function main(bot) {
   queue.process((job) => {
-    const cron = crons.find((data) => data.id === job.id);
+    const cron = crons.find((data) => data.id === job?.opts?.repeat?.jobId);
     if (cron) {
       console.info('[INFO]', job.id, 'is started');
-      cron.process(bot)
+      cron.process(bot)()
         .then(() => {
           console.info('[INFO]', job.id, 'is finished');
         });
