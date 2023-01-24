@@ -17,7 +17,7 @@ import {
 export function primogemsLimit(bot) {
   return async (job, done) => {
     try {
-      const media = '';
+      const media = 'https://artur-petrov.vinnica.ua/public/img/gacha-simulator/stickers/primogemsPaimon.webp';
       const mediaType = MEDIA_TYPE_STICKER;
 
       const allUsersDataIds = await getAllActiveUsersWithPrimogemsLimit();
@@ -65,7 +65,7 @@ export function primogemsLimit(bot) {
 export function howManyUserCanBuy(bot) {
   return async (job, done) => {
     try {
-      const media = '';
+      const media = 'https://artur-petrov.vinnica.ua/public/img/gacha-simulator/stickers/hmmPaimon.webp';
       const mediaType = MEDIA_TYPE_STICKER;
 
       const allUsersDataIds = await getAllActiveUsers();
