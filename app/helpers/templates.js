@@ -27,12 +27,12 @@ export default [
     makeBreak: true,
   },
   {
-    condition: ({ media, messageTemplate }) => messageTemplate && media?.mediaType === MEDIA_TYPE_PHOTO,
+    condition: ({ media, messageTemplate }) => messageTemplate && media?.media && media?.mediaType === MEDIA_TYPE_PHOTO,
     template: telegrafReplyHelper.messageWithCaption,
     makeBreak: true,
   },
   {
-    condition: ({ media, messageTemplate }) => messageTemplate && media?.mediaType === MEDIA_TYPE_STICKER,
+    condition: ({ media, messageTemplate }) => messageTemplate && media?.media && media?.mediaType === MEDIA_TYPE_STICKER,
     template: telegrafReplyHelper.messageAfterSticker,
     makeBreak: true,
   },
