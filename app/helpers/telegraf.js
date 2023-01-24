@@ -5,9 +5,9 @@ export function isAction(ctx) {
 }
 
 export function getContext(ctx) {
-  return !ctx.update.callback_query
-    ? ctx.update.message
-    : ctx.update.callback_query;
+  return !ctx?.update?.callback_query
+    ? ctx?.update?.message
+    : ctx?.update?.callback_query;
 }
 
 export function getChatId(ctx) {
