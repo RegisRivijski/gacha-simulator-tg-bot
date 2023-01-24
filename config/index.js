@@ -6,13 +6,14 @@ export default {
     version: packageJson.version,
   },
   server: {
-    port: process.env.BULL_BOARD_PORT,
+    enable: process.env.BULL_BOARD_ENABLE === 'true',
+    port: process.env.BULL_BOARD_PORT || 3000,
   },
   languages: {
     defaultLangCode: process.env.DEFAULT_LANGUAGE_CODE,
   },
   bot: {
-    API_TOKEN: process.env.SANDBOX_TG_BOT_API_TOKEN,
+    API_TOKEN: process.env.GACHA_SIMULATOR_TG_BOT_API_TOKEN,
   },
   db: {
     redis: {
