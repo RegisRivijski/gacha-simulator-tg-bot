@@ -4,8 +4,8 @@ import {
   MEDIA_TYPE_STICKER,
 } from '../../app/constants/index.js';
 
-import delay from '../../app/helpers/delayHelper.js';
 import replyByTemplate from '../../app/helpers/replyTemplatesHelper.js';
+import { progress } from '../helpers/utils.js';
 
 import {
   getAllActiveUsersWithPrimogemsLimit,
@@ -15,14 +15,15 @@ import {
 } from '../../app/managers/gachaSimulatorRest.js';
 
 export function primogemsLimit(bot) {
-  return async () => {
+  return async (job, done) => {
     try {
       const media = '';
       const mediaType = MEDIA_TYPE_STICKER;
 
       const allUsersDataIds = await getAllActiveUsersWithPrimogemsLimit();
+      const allUsersCount = allUsersDataIds.length;
 
-      for await (const chatId of allUsersDataIds) {
+      for await (const [i, chatId] of allUsersDataIds.entries()) {
         const userData = await getUserData(chatId)
           .catch((e) => {
             console.error('[ERROR] CRON notificationController primogemsLimit getUserData:', e.message);
@@ -47,27 +48,30 @@ export function primogemsLimit(bot) {
               mediaType,
             },
           })
-            .then(() => delay(5000))
             .catch((e) => {
               console.error('[ERROR] CRON notificationController primogemsLimit replyByTemplate:', e.message);
             });
         }
+        job.progress(progress(i, allUsersCount));
       }
     } catch (e) {
       console.error('[FATAL ERROR] CRON notificationController primogemsLimit:', e.message);
+    } finally {
+      done();
     }
   };
 }
 
 export function howManyUserCanBuy(bot) {
-  return async () => {
+  return async (job, done) => {
     try {
       const media = '';
       const mediaType = MEDIA_TYPE_STICKER;
 
       const allUsersDataIds = await getAllActiveUsers();
+      const allUsersCount = allUsersDataIds.length;
 
-      for await (const chatId of allUsersDataIds) {
+      for await (const [i, chatId] of allUsersDataIds.entries()) {
         const userData = await getUserData(chatId)
           .catch((e) => {
             console.error('[ERROR] CRON notificationController howManyUserCanBuy getUserData:', e.message);
@@ -93,14 +97,16 @@ export function howManyUserCanBuy(bot) {
               mediaType,
             },
           })
-            .then(() => delay(5000))
             .catch((e) => {
               console.error('[ERROR] CRON notificationController howManyUserCanBuy replyByTemplate:', e.message);
             });
         }
+        job.progress(progress(i, allUsersCount));
       }
     } catch (e) {
       console.error('[FATAL ERROR] CRON notificationController howManyUserCanBuy:', e.message);
+    } finally {
+      done();
     }
   };
 }

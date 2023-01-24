@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 export function isAction(ctx) {
-  return Boolean(ctx.update.callback_query);
+  return Boolean(ctx?.update?.callback_query);
 }
 
 export function getContext(ctx) {

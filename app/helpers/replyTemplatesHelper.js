@@ -1,4 +1,3 @@
-import errorHandler from './errorHandler.js';
 import templates from './templates.js';
 
 export default function replyByTemplate({
@@ -7,6 +6,7 @@ export default function replyByTemplate({
   media,
   gifBeforeMessage,
 }) {
+  const promises = [];
   for (const { condition, template, makeBreak } of templates) {
     const sendTemplate = condition({
       ctx,
@@ -15,16 +15,19 @@ export default function replyByTemplate({
       gifBeforeMessage,
     });
     if (sendTemplate) {
-      template({
-        ctx,
-        messageTemplate,
-        media,
-        gifBeforeMessage,
-      })
-        .catch(errorHandler);
+      promises.push(
+        template({
+          ctx,
+          messageTemplate,
+          media,
+          gifBeforeMessage,
+        }),
+      );
+
       if (makeBreak) {
         break;
       }
     }
   }
+  return Promise.all(promises);
 }

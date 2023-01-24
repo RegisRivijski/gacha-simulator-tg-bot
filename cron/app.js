@@ -2,12 +2,12 @@ import crons from './crons/index.js';
 import { queue } from './modules/queue.js';
 
 export default function main(bot) {
-  queue.process((job) => {
+  queue.process(async (job, done) => {
     const jobId = job?.opts?.repeat?.jobId;
     const cron = crons.find((data) => data.id === jobId);
     if (cron) {
       console.info('[INFO]', jobId, 'is started');
-      cron.process(bot)()
+      await cron.process(bot)(job, done)
         .then(() => {
           console.info('[INFO]', jobId, 'is finished');
         });
