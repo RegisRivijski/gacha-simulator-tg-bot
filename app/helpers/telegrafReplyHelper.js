@@ -98,5 +98,5 @@ export function editMessageReplyMarkup({ ctx }) {
 }
 
 export function replyWithChatActionTyping({ ctx }) {
-  return ctx.replyWithChatAction('typing');
+  return ctx.telegram.sendChatAction(getChatId(ctx), 'typing');
 }

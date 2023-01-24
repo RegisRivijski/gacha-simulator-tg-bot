@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import {
   MEDIA_TYPE_STICKER,
 } from '../../app/constants/index.js';
@@ -28,8 +30,7 @@ export function primogemsLimit(bot) {
           });
         const { additionalData } = userData;
 
-        // eslint-disable-next-line no-param-reassign
-        bot.state.chatId = chatId;
+        _.set(bot, 'state.chatId', chatId);
 
         if (additionalData?.primogemsGetMaxLimit) {
           const messageTemplate = await getTranslate(userData.languageCode, 'cron.maxPrimogems')
@@ -74,8 +75,7 @@ export function howManyUserCanBuy(bot) {
           });
         const { additionalData } = userData;
 
-        // eslint-disable-next-line no-param-reassign
-        bot.state.chatId = chatId;
+        _.set(bot, 'state.chatId', chatId);
 
         if (additionalData?.canBuyWishes > 10 && additionalData?.hoursFromLastWish >= 72) {
           const messageTemplate = await getTranslate(userData.languageCode, 'cron.fatesCount')
