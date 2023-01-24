@@ -22,7 +22,7 @@ export default [
       gifBeforeMessage,
       media,
       messageTemplate,
-    }) => messageTemplate && gifBeforeMessage?.media && media?.mediaType === MEDIA_TYPE_PHOTO,
+    }) => messageTemplate && gifBeforeMessage?.media && media?.media && media?.mediaType === MEDIA_TYPE_PHOTO,
     template: telegrafReplyHelper.replyGifBeforeMessage,
     makeBreak: true,
   },
