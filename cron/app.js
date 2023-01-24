@@ -17,7 +17,10 @@ export default function main(bot) {
   });
 
   for (const cron of crons) {
-    queue.add(cron.data, {
+    queue.add({
+      id: cron.id,
+      schedule: cron.schedule,
+    }, {
       jobId: cron.id,
       removeOnComplete: true,
       repeat: {
