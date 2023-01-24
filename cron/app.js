@@ -1,11 +1,5 @@
-import Queue from 'bull';
-
-import config from '../config/index.js';
 import crons from './crons/index.js';
-
-const queue = new Queue(config.bot.API_TOKEN, {
-  redis: config.db.redis,
-});
+import { queue } from './modules/queue.js';
 
 export default function main(bot) {
   queue.process((job) => {

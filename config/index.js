@@ -5,6 +5,9 @@ export default {
     name: packageJson.name,
     version: packageJson.version,
   },
+  server: {
+    port: process.env.BULL_BOARD_PORT,
+  },
   languages: {
     defaultLangCode: process.env.DEFAULT_LANGUAGE_CODE,
   },
