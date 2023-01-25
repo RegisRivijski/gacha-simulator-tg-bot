@@ -27,15 +27,15 @@ export default new Composer()
   .command('wish10', wishRateLimiter, getDataByChatId(usersWishX10))
 
   .action(/^wi /, wishRateLimiter, getDataByChatId(usersWish))
-  .action(/^wi10 /, wishRateLimiter, getDataByChatId(usersWishX10))
+  .action(/^10wi /, wishRateLimiter, getDataByChatId(usersWishX10))
 
   .command('inventory', getDataByChatId(usersInventory))
   .action(/^in /, getDataByChatId(usersInventory))
 
   .command('profile', getDataByChatId(usersProfile))
   .action(/^pr /, getDataByChatId(usersProfile))
-  .action(/^pr_get /, getDataByChatId(usersProfileGetPrimogems))
-  .action(/^pr_chng /, getDataByChatId(usersProfileChangeBanner))
+  .action(/^get_pr /, getDataByChatId(usersProfileGetPrimogems))
+  .action(/^chng_pr /, getDataByChatId(usersProfileChangeBanner))
 
   .command('history', getDataByChatId(usersHistory))
   .action(/^hi /, getDataByChatIdAndPage(usersHistory))
