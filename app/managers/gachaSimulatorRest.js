@@ -11,46 +11,6 @@ const reqInstance = axios.create({
 
 const gachaSimulatorRest = `http://${config.rest.gachaSimulatorRest.host}:${config.rest.gachaSimulatorRest.port}`;
 
-export function usersProfile(chatId) {
-  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/profile`)
-    .then(({ data }) => data);
-}
-
-export function usersProfileGetPrimogems(chatId) {
-  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/profile?getPrimogems=true`)
-    .then(({ data }) => data);
-}
-
-export function usersProfileChangeBanner(chatId) {
-  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/profile?changeBanner=true`)
-    .then(({ data }) => data);
-}
-
-export function usersHistory(chatId, page = 0) {
-  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/history/${page}`)
-    .then(({ data }) => data);
-}
-
-export function usersInventory(chatId) {
-  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/inventory`)
-    .then(({ data }) => data);
-}
-
-export function usersPrimogems(chatId) {
-  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/primogems`)
-    .then(({ data }) => data);
-}
-
-export function usersWish(chatId) {
-  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/wish`)
-    .then(({ data }) => data);
-}
-
-export function usersWishX10(chatId) {
-  return reqInstance.get(`${gachaSimulatorRest}/tg-bot/user/${chatId}/wish-x10`)
-    .then(({ data }) => data);
-}
-
 export function updateUserData(chatId, fields) {
   return reqInstance.put(`${gachaSimulatorRest}/user/${chatId}`, {
     fields,
