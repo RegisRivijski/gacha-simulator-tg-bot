@@ -1,4 +1,4 @@
-import { getUserData } from '../helpers/telegraf.js';
+import { getCtxData } from '../helpers/telegraf.js';
 import { addGroupChat, updateUserData } from '../managers/gachaSimulatorRest.js';
 
 export default async function dataValidator(ctx, next) {
@@ -16,7 +16,7 @@ export default async function dataValidator(ctx, next) {
     groupUsername,
     languageCode,
     isPersonalMessage,
-  } = getUserData(ctx);
+  } = getCtxData(ctx);
 
   const fieldsForUpdateUserData = [];
 

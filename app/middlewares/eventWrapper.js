@@ -1,14 +1,14 @@
 import _ from 'lodash';
 import axios from 'axios';
 
-import { getUserData, isAction } from '../helpers/telegraf.js';
+import { getCtxData, isAction } from '../helpers/telegraf.js';
 import config from '../../config/index.js';
 
 export default function eventWrapper(routeData) {
   return async (ctx, next) => {
-    const userData = getUserData(ctx);
+    const ctxData = getCtxData(ctx);
     const route = _.template(routeData.route)({
-      userData,
+      ctxData,
     });
     ctx.state.data = await axios.get(route, {
       headers: {

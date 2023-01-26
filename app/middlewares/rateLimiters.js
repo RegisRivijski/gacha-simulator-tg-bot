@@ -6,13 +6,13 @@ import {
 
 import { client } from '../modules/redis.js';
 import { howManyMinutesPast } from '../helpers/timeHelper.js';
-import { getContext, getUserData, isAction } from '../helpers/telegraf.js';
+import { getContext, getCtxData, isAction } from '../helpers/telegraf.js';
 
 export async function commandRateLimiter(ctx, next) {
   const {
     chatId,
     groupChatId,
-  } = getUserData(ctx);
+  } = getCtxData(ctx);
 
   const key = `message_${chatId}_${groupChatId}`;
   const rateLimit = await client.get(key);
@@ -30,7 +30,7 @@ export async function wishRateLimiter(ctx, next) {
   const {
     chatId,
     groupChatId,
-  } = getUserData(ctx);
+  } = getCtxData(ctx);
 
   const key = `spin_${chatId}_${groupChatId}`;
   const isSpin = await client.get(key);
