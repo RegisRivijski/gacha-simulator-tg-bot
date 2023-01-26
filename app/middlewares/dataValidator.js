@@ -1,5 +1,3 @@
-import errorHandler from '../helpers/errorHandler.js';
-
 import { getUserData } from '../helpers/telegraf.js';
 import { addGroupChat, updateUserData } from '../managers/gachaSimulatorRest.js';
 
@@ -52,12 +50,18 @@ export default async function dataValidator(ctx, next) {
       value: [...userData.groupChatIds, groupChatId],
     });
     addGroupChat(groupChatId, { groupTitle, groupUsername })
-      .catch(errorHandler);
+      .catch((e) => {
+        console.error('[ERROR] 1. middlewares/dataValidator.js addGroupChat:', e.message);
+        console.error('[ERROR] 2.', groupChatId, { groupTitle, groupUsername });
+      });
   }
 
   if (fieldsForUpdateUserData.length) {
     updateUserData(chatId, fieldsForUpdateUserData)
-      .catch(errorHandler);
+      .catch((e) => {
+        console.error('[ERROR] 1. middlewares/dataValidator.js updateUserData:', e.message);
+        console.error('[ERROR] 2.', chatId, fieldsForUpdateUserData);
+      });
   }
 
   await next();

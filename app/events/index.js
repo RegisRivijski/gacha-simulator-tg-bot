@@ -2,45 +2,35 @@ import { Composer } from 'telegraf';
 
 import replyModule from '../middlewares/replyModule.js';
 import dataValidator from '../middlewares/dataValidator.js';
-import { commandRateLimiter, wishRateLimiter } from '../middlewares/rateLimiters.js';
-import { errorHandler, ignoreOldMessages } from '../middlewares/events.js';
+import eventWrapper from '../middlewares/eventWrapper.js';
+import errorHandler from '../middlewares/errorHandler.js';
 
-import { getDataByChatId, getDataByChatIdAndPage } from '../helpers/telegraf.js';
-
-import {
-  usersWish,
-  usersWishX10,
-  usersInventory,
-  usersProfile,
-  usersPrimogems,
-  usersHistory,
-  usersProfileGetPrimogems,
-  usersProfileChangeBanner,
-} from '../managers/gachaSimulatorRest.js';
+import * as proxyRoutes from '../routers/proxy.js';
+import * as rateLimiters from '../middlewares/rateLimiters.js';
 
 export default new Composer()
   .use(errorHandler)
-  .use(ignoreOldMessages)
-  .use(commandRateLimiter)
+  .use(rateLimiters.ignoreOldMessages)
+  .use(rateLimiters.commandRateLimiter)
 
-  .command('wish', wishRateLimiter, getDataByChatId(usersWish))
-  .command('wish10', wishRateLimiter, getDataByChatId(usersWishX10))
+  .command('wish', rateLimiters.wishRateLimiter, eventWrapper(proxyRoutes.usersWish))
+  .command('wish10', rateLimiters.wishRateLimiter, eventWrapper(proxyRoutes.usersWishX10))
 
-  .action(/^wi /, wishRateLimiter, getDataByChatId(usersWish))
-  .action(/^10wi /, wishRateLimiter, getDataByChatId(usersWishX10))
+  .action(/^wi /, rateLimiters.wishRateLimiter, eventWrapper(proxyRoutes.usersWish))
+  .action(/^10wi /, rateLimiters.wishRateLimiter, eventWrapper(proxyRoutes.usersWishX10))
 
-  .command('inventory', getDataByChatId(usersInventory))
-  .action(/^in /, getDataByChatId(usersInventory))
+  .command('inventory', eventWrapper(proxyRoutes.usersInventory))
+  .action(/^in /, eventWrapper(proxyRoutes.usersInventory))
 
-  .command('profile', getDataByChatId(usersProfile))
-  .action(/^pr /, getDataByChatId(usersProfile))
-  .action(/^get_pr /, getDataByChatId(usersProfileGetPrimogems))
-  .action(/^chng_pr /, getDataByChatId(usersProfileChangeBanner))
+  .command('profile', eventWrapper(proxyRoutes.usersProfile))
+  .action(/^pr /, eventWrapper(proxyRoutes.usersProfile))
+  .action(/^get_pr /, eventWrapper(proxyRoutes.usersProfileGetPrimogems))
+  .action(/^chng_pr /, eventWrapper(proxyRoutes.usersProfileChangeBanner))
 
-  .command('history', getDataByChatId(usersHistory))
-  .action(/^hi /, getDataByChatIdAndPage(usersHistory))
+  .command('history', eventWrapper(proxyRoutes.usersHistory))
+  .action(/^hi /, eventWrapper(proxyRoutes.usersHistory))
 
-  .command('primogems', getDataByChatId(usersPrimogems))
+  .command('primogems', eventWrapper(proxyRoutes.usersPrimogems))
 
   .use(replyModule)
   .use(dataValidator);

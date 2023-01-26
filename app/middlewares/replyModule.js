@@ -1,5 +1,4 @@
 import replyByTemplate from '../helpers/replyTemplatesHelper.js';
-import { errorHandler } from './events.js';
 
 export default async function replyModule(ctx, next) {
   const {
@@ -14,7 +13,9 @@ export default async function replyModule(ctx, next) {
     media,
     gifBeforeMessage,
   })
-    .catch(errorHandler);
+    .catch((e) => {
+      console.error('[ERROR] middlewares/replyModule.js:', e.message);
+    });
 
   await next();
 }

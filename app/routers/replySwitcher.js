@@ -3,8 +3,8 @@ import {
   MEDIA_TYPE_STICKER,
 } from '../constants/index.js';
 
-import { isAction } from './telegraf.js';
-import * as telegrafReplyHelper from './telegrafReplyHelper.js';
+import { isAction } from '../helpers/telegraf.js';
+import * as telegrafReplyHelper from '../helpers/telegrafReplyHelper.js';
 
 export default [
   {

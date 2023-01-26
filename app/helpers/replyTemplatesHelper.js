@@ -1,4 +1,4 @@
-import templates from './templates.js';
+import templates from '../routers/replySwitcher.js';
 
 export default function replyByTemplate({
   ctx,

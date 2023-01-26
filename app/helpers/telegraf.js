@@ -42,16 +42,3 @@ export function getUserData(ctx) {
     isPersonalMessage,
   };
 }
-export function getDataByChatId(axiosRequest) {
-  return async (ctx, next) => {
-    ctx.state.data = await axiosRequest(getChatId(ctx));
-    await next();
-  };
-}
-
-export function getDataByChatIdAndPage(axiosRequest) {
-  return async (ctx, next) => {
-    ctx.state.data = await axiosRequest(getChatId(ctx));
-    await next();
-  };
-}

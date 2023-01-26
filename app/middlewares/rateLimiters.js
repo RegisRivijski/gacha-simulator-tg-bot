@@ -1,10 +1,12 @@
 import {
   MESSAGE_RATE_LIMIT_TTL,
   BANNER_RATE_LIMIT_TTL,
+  IGNORE_OLD_MESSAGE_MINUTES,
 } from '../constants/index.js';
 
-import { getUserData } from '../helpers/telegraf.js';
 import { client } from '../modules/redis.js';
+import { howManyMinutesPast } from '../helpers/timeHelper.js';
+import { getContext, getUserData, isAction } from '../helpers/telegraf.js';
 
 export async function commandRateLimiter(ctx, next) {
   const {
@@ -43,5 +45,18 @@ export async function wishRateLimiter(ctx, next) {
     ctx.state.rateLimiterKey = key;
 
     await next();
+  }
+}
+
+export async function ignoreOldMessages(ctx, next) {
+  if (isAction(ctx)) {
+    await next();
+  } else {
+    const context = getContext(ctx);
+    const tgDate = Number(context.date) * 1000;
+    const minutes = howManyMinutesPast(tgDate);
+    if (minutes < IGNORE_OLD_MESSAGE_MINUTES) {
+      await next();
+    }
   }
 }
