@@ -19,6 +19,16 @@ export default [
   },
   {
     condition: ({
+      ctx,
+      messageTemplate,
+      media,
+      updateMessage,
+    }) => isAction(ctx) && updateMessage && messageTemplate && media?.mediaMarkupButtons,
+    template: telegrafReplyHelper.editMessageTextByAction,
+    makeBreak: true,
+  },
+  {
+    condition: ({
       gifBeforeMessage,
       media,
       messageTemplate,

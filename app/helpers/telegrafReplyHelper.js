@@ -34,6 +34,17 @@ export function editMediaWithCaption({
   }, { ...makeMarkupInlineKeyboard(media?.mediaMarkupButtons) });
 }
 
+export function editMessageTextByAction({
+  ctx,
+  media,
+  messageTemplate,
+}) {
+  return ctx.editMessageText(messageTemplate, {
+    parse_mode: 'HTML',
+    ...makeMarkupInlineKeyboard(media?.mediaMarkupButtons),
+  });
+}
+
 export function messageWithCaption({
   ctx,
   media,
