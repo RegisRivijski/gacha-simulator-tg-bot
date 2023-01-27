@@ -22,6 +22,7 @@ export default function eventWrapper(routeData) {
       .then(({ data }) => data)
       .catch((e) => {
         console.error('[ERROR] eventWrapper', route, ':', e.message);
+        throw e;
       });
     await next();
   };
