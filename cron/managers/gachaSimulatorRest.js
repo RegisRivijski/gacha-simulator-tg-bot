@@ -13,8 +13,8 @@ export function getHowManyUserCanBuy() {
     .then(({ data }) => data);
 }
 
-export function getAllActiveUsers() {
-  return reqInstance.get(`${gachaSimulatorRestOrigin}/analytics/all-active-users`)
+export function getAllUsersAndGroupChats() {
+  return reqInstance.get(`${gachaSimulatorRestOrigin}/analytics/users-and-group-chats`)
     .then(({ data }) => data);
 }
 
@@ -25,5 +25,10 @@ export function getTranslate(code, t) {
 
 export function getUserData(chatId) {
   return reqInstance.get(`${gachaSimulatorRestOrigin}/user/${chatId}`)
+    .then(({ data }) => data);
+}
+
+export function configureCronNotification(type, id, isActive) {
+  return reqInstance.get(`${gachaSimulatorRestOrigin}/cron/configure-for-notifications/${type}/${id}/${isActive}`)
     .then(({ data }) => data);
 }
