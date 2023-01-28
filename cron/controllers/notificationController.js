@@ -7,12 +7,7 @@ import {
 import replyByTemplate from '../../app/helpers/replyTemplatesHelper.js';
 import { progress } from '../helpers/utils.js';
 
-import {
-  getAllActiveUsersWithPrimogemsLimit,
-  getAllActiveUsers,
-  getTranslate,
-  getUserData,
-} from '../managers/gachaSimulatorRest.js';
+import * as cronGachaSimulatorManager from '../managers/gachaSimulatorRest.js';
 
 export function primogemsLimit(bot) {
   return async (job, done) => {
@@ -20,11 +15,11 @@ export function primogemsLimit(bot) {
       const media = 'https://artur-petrov.vinnica.ua/public/img/gacha-simulator/stickers/primogemsPaimon.webp';
       const mediaType = MEDIA_TYPE_STICKER;
 
-      const allUsersDataIds = await getAllActiveUsersWithPrimogemsLimit();
+      const allUsersDataIds = await cronGachaSimulatorManager.getPrimogemsLimit();
       const allUsersCount = allUsersDataIds.length;
 
       for await (const [i, chatId] of allUsersDataIds.entries()) {
-        const userData = await getUserData(chatId)
+        const userData = await cronGachaSimulatorManager.getUserData(chatId)
           .catch((e) => {
             console.error('[ERROR] CRON notificationController primogemsLimit getUserData:', e.message);
             return {};
@@ -34,7 +29,7 @@ export function primogemsLimit(bot) {
         _.set(bot, 'state.chatId', chatId);
 
         if (additionalData?.primogemsGetMaxLimit) {
-          const messageTemplate = await getTranslate(userData.languageCode, 'cron.maxPrimogems')
+          const messageTemplate = await cronGachaSimulatorManager.getTranslate(userData.languageCode, 'cron.maxPrimogems')
             .catch((e) => {
               console.error('[ERROR] CRON notificationController primogemsLimit getTranslate:', e.message);
               return '';
@@ -68,11 +63,11 @@ export function howManyUserCanBuy(bot) {
       const media = 'https://artur-petrov.vinnica.ua/public/img/gacha-simulator/stickers/hmmPaimon.webp';
       const mediaType = MEDIA_TYPE_STICKER;
 
-      const allUsersDataIds = await getAllActiveUsers();
+      const allUsersDataIds = await cronGachaSimulatorManager.getHowManyUserCanBuy();
       const allUsersCount = allUsersDataIds.length;
 
       for await (const [i, chatId] of allUsersDataIds.entries()) {
-        const userData = await getUserData(chatId)
+        const userData = await cronGachaSimulatorManager.getUserData(chatId)
           .catch((e) => {
             console.error('[ERROR] CRON notificationController howManyUserCanBuy getUserData:', e.message);
             return {};
@@ -81,8 +76,8 @@ export function howManyUserCanBuy(bot) {
 
         _.set(bot, 'state.chatId', chatId);
 
-        if (additionalData?.canBuyWishes > 10 && additionalData?.hoursFromLastWish >= 72) {
-          const messageTemplate = await getTranslate(userData.languageCode, 'cron.fatesCount')
+        if (additionalData?.howManyUserCanBuy) {
+          const messageTemplate = await cronGachaSimulatorManager.getTranslate(userData.languageCode, 'cron.fatesCount')
             .then((message) => message.replace('{fatesCount}', String(additionalData.canBuyWishes)))
             .catch((e) => {
               console.error('[ERROR] CRON notificationController howManyUserCanBuy getTranslate:', e.message);

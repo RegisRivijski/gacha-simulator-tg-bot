@@ -3,8 +3,13 @@ import {
   gachaSimulatorRestOrigin,
 } from '../../app/modules/proxyReqInstance.js';
 
-export function getAllActiveUsersWithPrimogemsLimit() {
-  return reqInstance.get(`${gachaSimulatorRestOrigin}/analytics/all-active-users-with-primogems-limit`)
+export function getPrimogemsLimit() {
+  return reqInstance.get(`${gachaSimulatorRestOrigin}/cron/primogems-limit`)
+    .then(({ data }) => data);
+}
+
+export function getHowManyUserCanBuy() {
+  return reqInstance.get(`${gachaSimulatorRestOrigin}/cron/how-many-user-can-buy`)
     .then(({ data }) => data);
 }
 
