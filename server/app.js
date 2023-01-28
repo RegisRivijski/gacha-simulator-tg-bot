@@ -5,8 +5,12 @@ import {
   BullAdapter,
 } from '@bull-board/express';
 
+import {
+  notificationQueue,
+  analyticsQueue,
+} from '../cron/modules/queue.js';
+
 import config from '../config/index.js';
-import { queue } from '../cron/modules/queue.js';
 
 export default function main() {
   const basePath = '/admin/queues';
@@ -16,7 +20,10 @@ export default function main() {
   serverAdapter.setBasePath(basePath);
 
   createBullBoard({
-    queues: [new BullAdapter(queue)],
+    queues: [
+      new BullAdapter(notificationQueue),
+      new BullAdapter(analyticsQueue),
+    ],
     serverAdapter,
   });
 

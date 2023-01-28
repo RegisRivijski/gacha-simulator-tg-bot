@@ -12,7 +12,7 @@ import {
   getAllActiveUsers,
   getTranslate,
   getUserData,
-} from '../../app/managers/gachaSimulatorRest.js';
+} from '../managers/gachaSimulatorRest.js';
 
 export function primogemsLimit(bot) {
   return async (job, done) => {

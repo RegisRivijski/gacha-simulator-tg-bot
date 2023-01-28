@@ -4,9 +4,9 @@ import axios from 'axios';
 import { getCtxData, isAction } from '../helpers/telegraf.js';
 import config from '../../config/index.js';
 
-const gachaSimulatorRestOrigin = `http://${config.rest.gachaSimulatorRest.host}:${config.rest.gachaSimulatorRest.port}`;
+import { gachaSimulatorRestOrigin } from '../modules/proxyReqInstance.js';
 
-export default function eventWrapper(routeData) {
+export default function proxyRequest(routeData) {
   return async (ctx, next) => {
     const ctxData = getCtxData(ctx);
     const route = _.template(routeData.route)({
@@ -21,7 +21,7 @@ export default function eventWrapper(routeData) {
     })
       .then(({ data }) => data)
       .catch((e) => {
-        console.error('[ERROR] eventWrapper', route, ':', e.message);
+        console.error('[ERROR] proxyRequest', route, ':', e.message);
         throw e;
       });
     await next();
