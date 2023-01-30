@@ -10,6 +10,7 @@ export default function proxyRequest(routeData) {
   return async (ctx, next) => {
     const ctxData = getCtxData(ctx);
     const route = _.template(routeData.route)({
+      ...routeData?.defaultData,
       ctxData,
     });
     ctx.state.data = await axios.get(`${gachaSimulatorRestOrigin}${route}`, {

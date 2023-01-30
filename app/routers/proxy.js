@@ -9,6 +9,9 @@ export const usersProfileChangeBanner = {
 };
 export const usersHistory = {
   route: '/tg-bot/user/<%= ctxData.chatId %>/history/<%= page %>',
+  defaultData: {
+    page: 0,
+  },
 };
 export const usersInventory = {
   route: '/tg-bot/user/<%= ctxData.chatId %>/inventory',
