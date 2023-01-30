@@ -1,27 +1,12 @@
 import templates from '../routers/replySwitcher.js';
 
-export default function replyByTemplate({
-  ctx,
-  messageTemplate,
-  media,
-  gifBeforeMessage,
-}) {
+export default function replyByTemplate(templateParams) {
   const promises = [];
   for (const { condition, template, makeBreak } of templates) {
-    const sendTemplate = condition({
-      ctx,
-      messageTemplate,
-      media,
-      gifBeforeMessage,
-    });
+    const sendTemplate = condition(templateParams);
     if (sendTemplate) {
       promises.push(
-        template({
-          ctx,
-          messageTemplate,
-          media,
-          gifBeforeMessage,
-        }),
+        template(templateParams),
       );
 
       if (makeBreak) {

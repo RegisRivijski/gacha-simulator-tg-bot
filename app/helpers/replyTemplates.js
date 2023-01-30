@@ -41,6 +41,7 @@ export function editMessageTextByAction({
 }) {
   return ctx.editMessageText(messageTemplate, {
     parse_mode: 'HTML',
+    disable_web_page_preview: true,
     ...makeMarkupInlineKeyboard(media?.mediaMarkupButtons),
   });
 }

@@ -11,7 +11,7 @@ export function getContext(ctx) {
 }
 
 export function getChatId(ctx) {
-  return _.result(getContext(ctx), 'from.id') || ctx.state.chatId;
+  return _.result(getContext(ctx), 'chat.id') || ctx.state.chatId;
 }
 
 export function getCtxData(ctx) {

@@ -7,13 +7,13 @@ import {
 
 import replyByTemplate from '../../app/helpers/replyTemplatesHelper.js';
 
-import { getAllUsersAndGroupChats, configureCronNotification } from '../managers/gachaSimulatorRest.js';
+import * as gachaSimulatorManager from '../managers/gachaSimulatorRest.js';
 import { progress } from '../helpers/utils.js';
 
 export function congifugureNotification(bot) {
   return async (job, done) => {
     try {
-      const { users, groups } = await getAllUsersAndGroupChats();
+      const { users, groups } = await gachaSimulatorManager.getAllUsersAndGroupChats();
 
       const allCount = users.length + groups.length;
       let counter = 0;
@@ -24,10 +24,10 @@ export function congifugureNotification(bot) {
           ctx: bot,
         })
           .then(() => {
-            configureCronNotification(TELEGRAM_USER_TYPE, id, true);
+            gachaSimulatorManager.setActiveTelegramBot(TELEGRAM_USER_TYPE, id, true);
           })
           .catch(() => {
-            configureCronNotification(TELEGRAM_USER_TYPE, id, false);
+            gachaSimulatorManager.setActiveTelegramBot(TELEGRAM_USER_TYPE, id, false);
           });
         counter += 1;
         job.progress(progress(counter, allCount));
@@ -39,10 +39,10 @@ export function congifugureNotification(bot) {
           ctx: bot,
         })
           .then(() => {
-            configureCronNotification(TELEGRAM_GROUP_TYPE, id, true);
+            gachaSimulatorManager.setActiveTelegramBot(TELEGRAM_GROUP_TYPE, id, true);
           })
           .catch(() => {
-            configureCronNotification(TELEGRAM_GROUP_TYPE, id, false);
+            gachaSimulatorManager.setActiveTelegramBot(TELEGRAM_GROUP_TYPE, id, false);
           });
         counter += 1;
         job.progress(progress(counter, allCount));

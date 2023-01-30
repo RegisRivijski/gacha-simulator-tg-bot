@@ -28,7 +28,7 @@ export function getUserData(chatId) {
     .then(({ data }) => data);
 }
 
-export function configureCronNotification(type, id, isActive) {
-  return reqInstance.get(`${gachaSimulatorRestOrigin}/cron/configure-for-notifications/${type}/${id}/${isActive}`)
+export function setActiveTelegramBot(type, id, isActive) {
+  return reqInstance.post(`${gachaSimulatorRestOrigin}/analytics/active-telegram-bot`, { type, id, isActive })
     .then(({ data }) => data);
 }

@@ -4,17 +4,17 @@ import {
 } from '../constants/index.js';
 
 import { isAction } from '../helpers/telegraf.js';
-import * as telegrafReplyHelper from '../helpers/telegrafReplyHelper.js';
+import * as templates from '../helpers/replyTemplates.js';
 
 export default [
   {
     condition: () => true,
-    template: telegrafReplyHelper.replyWithChatActionTyping,
+    template: templates.replyWithChatActionTyping,
     makeBreak: false,
   },
   {
     condition: ({ ctx, media }) => isAction(ctx) && media?.mediaMarkupButtonsRemoveAfterClick,
-    template: telegrafReplyHelper.editMessageReplyMarkup,
+    template: templates.editMessageReplyMarkup,
     makeBreak: false,
   },
   {
@@ -24,7 +24,7 @@ export default [
       media,
       updateMessage,
     }) => isAction(ctx) && updateMessage && messageTemplate && media?.mediaMarkupButtons,
-    template: telegrafReplyHelper.editMessageTextByAction,
+    template: templates.editMessageTextByAction,
     makeBreak: true,
   },
   {
@@ -33,22 +33,22 @@ export default [
       media,
       messageTemplate,
     }) => messageTemplate && gifBeforeMessage?.media && media?.media && media?.mediaType === MEDIA_TYPE_PHOTO,
-    template: telegrafReplyHelper.replyGifBeforeMessage,
+    template: templates.replyGifBeforeMessage,
     makeBreak: true,
   },
   {
     condition: ({ media, messageTemplate }) => messageTemplate && media?.media && media?.mediaType === MEDIA_TYPE_PHOTO,
-    template: telegrafReplyHelper.messageWithCaption,
+    template: templates.messageWithCaption,
     makeBreak: true,
   },
   {
     condition: ({ media, messageTemplate }) => messageTemplate && media?.media && media?.mediaType === MEDIA_TYPE_STICKER,
-    template: telegrafReplyHelper.messageAfterSticker,
+    template: templates.messageAfterSticker,
     makeBreak: true,
   },
   {
     condition: ({ messageTemplate }) => Boolean(messageTemplate),
-    template: telegrafReplyHelper.message,
+    template: templates.message,
     makeBreak: true,
   },
 ];

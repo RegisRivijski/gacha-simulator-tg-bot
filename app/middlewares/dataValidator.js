@@ -2,9 +2,7 @@ import { getCtxData } from '../helpers/telegraf.js';
 import { addGroupChat, updateUserData } from '../managers/gachaSimulatorRest.js';
 
 export default async function dataValidator(ctx, next) {
-  const {
-    userData,
-  } = ctx.state.data;
+  const userData = ctx.state?.data?.userData ?? {};
 
   const {
     chatId,
