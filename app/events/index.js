@@ -13,6 +13,8 @@ export default new Composer()
   .use(rateLimiters.ignoreOldMessages)
   .use(rateLimiters.commandRateLimiter)
 
+  .action('blank', (ctx) => ctx.answerCbQuery('This button is blank.'))
+
   .command('start', proxyRequest(proxyRoutes.start))
   .command('help', proxyRequest(proxyRoutes.help))
   .command('settings', proxyRequest(proxyRoutes.settings))
