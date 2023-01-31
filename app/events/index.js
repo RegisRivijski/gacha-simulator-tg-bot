@@ -13,6 +13,11 @@ export default new Composer()
   .use(rateLimiters.ignoreOldMessages)
   .use(rateLimiters.commandRateLimiter)
 
+  .command('start', proxyRequest(proxyRoutes.start))
+  .command('help', proxyRequest(proxyRoutes.help))
+  .command('settings', proxyRequest(proxyRoutes.settings))
+  .action(/^sett /, proxyRequest(proxyRoutes.settings))
+
   .command('wish', rateLimiters.wishRateLimiter, proxyRequest(proxyRoutes.usersWish))
   .command('wish10', rateLimiters.wishRateLimiter, proxyRequest(proxyRoutes.usersWishX10))
 

@@ -1,5 +1,7 @@
 import _ from 'lodash';
 
+import ActionData from '../classes/ActionData.js';
+
 export function isAction(ctx) {
   return Boolean(ctx?.update?.callback_query);
 }
@@ -40,5 +42,15 @@ export function getCtxData(ctx) {
     groupUsername,
     languageCode,
     isPersonalMessage,
+  };
+}
+
+export function getActionData(ctx) {
+  const actionData = new ActionData(ctx);
+
+  return {
+    ownerId: actionData.getParam('ow:'),
+    languageCodeSettings: actionData.getParam('cd:'),
+    page: actionData.getParam('pg:'),
   };
 }

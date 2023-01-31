@@ -23,7 +23,7 @@ export async function commandRateLimiter(ctx, next) {
       EX: MESSAGE_RATE_LIMIT_TTL,
     });
     await next();
-  } else {
+  } else if (isAction(ctx)) {
     ctx.answerCbQuery('You are clicking too often.');
   }
 }

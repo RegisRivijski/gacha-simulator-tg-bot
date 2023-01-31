@@ -37,14 +37,26 @@ export default [
     makeBreak: true,
   },
   {
-    condition: ({ media, messageTemplate }) => messageTemplate && media?.media && media?.mediaType === MEDIA_TYPE_PHOTO,
-    template: templates.messageWithCaption,
+    condition: ({
+      media,
+      messageTemplate,
+      messageAfterMedia,
+    }) => !messageAfterMedia && messageTemplate && media?.media && media?.mediaType === MEDIA_TYPE_PHOTO,
+    template: templates.sendPhotoWithCaption,
     makeBreak: true,
   },
   {
     condition: ({ media, messageTemplate }) => messageTemplate && media?.media && media?.mediaType === MEDIA_TYPE_STICKER,
     template: templates.messageAfterSticker,
     makeBreak: true,
+  },
+  {
+    condition: ({
+      media,
+      messageAfterMedia,
+    }) => messageAfterMedia && media?.media && media?.mediaType === MEDIA_TYPE_PHOTO,
+    template: templates.sendPhotoWithoutCaption,
+    makeBreak: false,
   },
   {
     condition: ({ messageTemplate }) => Boolean(messageTemplate),

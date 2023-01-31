@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import axios from 'axios';
 
-import { getCtxData, isAction } from '../helpers/telegraf.js';
+import { getActionData, getCtxData, isAction } from '../helpers/telegraf.js';
 import config from '../../config/index.js';
 
 import { gachaSimulatorRestOrigin } from '../modules/proxyReqInstance.js';
@@ -9,9 +9,11 @@ import { gachaSimulatorRestOrigin } from '../modules/proxyReqInstance.js';
 export default function proxyRequest(routeData) {
   return async (ctx, next) => {
     const ctxData = getCtxData(ctx);
+    const actionData = getActionData(ctx);
     const route = _.template(routeData.route)({
       ...routeData?.defaultData,
-      ctxData,
+      ...ctxData,
+      ...actionData,
     });
     ctx.state.data = await axios.get(`${gachaSimulatorRestOrigin}${route}`, {
       headers: {

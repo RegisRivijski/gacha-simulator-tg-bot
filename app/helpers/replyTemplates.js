@@ -46,13 +46,22 @@ export function editMessageTextByAction({
   });
 }
 
-export function messageWithCaption({
+export function sendPhotoWithCaption({
   ctx,
   media,
   messageTemplate,
 }) {
   return ctx.telegram.sendPhoto(getChatId(ctx), media.media, {
     caption: messageTemplate,
+    parse_mode: 'HTML',
+  }, { ...makeMarkupInlineKeyboard(media?.mediaMarkupButtons) });
+}
+
+export function sendPhotoWithoutCaption({
+  ctx,
+  media,
+}) {
+  return ctx.telegram.sendPhoto(getChatId(ctx), media.media, {
     parse_mode: 'HTML',
   }, { ...makeMarkupInlineKeyboard(media?.mediaMarkupButtons) });
 }

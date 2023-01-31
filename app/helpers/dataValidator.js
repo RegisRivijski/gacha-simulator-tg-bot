@@ -1,6 +1,9 @@
 import { addGroupChat, updateUserData } from '../managers/gachaSimulatorRest.js';
 
-export function validateAndUpdateUserData(ctxData, userData) {
+export function validateAndUpdateUserData({
+  ctxData,
+  userData,
+}) {
   const {
     chatId,
     firstName,
@@ -9,7 +12,6 @@ export function validateAndUpdateUserData(ctxData, userData) {
     groupChatId,
     groupTitle,
     groupUsername,
-    languageCode,
     isPersonalMessage,
   } = ctxData;
 
@@ -31,12 +33,6 @@ export function validateAndUpdateUserData(ctxData, userData) {
     fieldsForUpdateUserData.push({
       key: 'username',
       value: username,
-    });
-  }
-  if (!userData.languageCode && languageCode) {
-    fieldsForUpdateUserData.push({
-      key: 'languageCode',
-      value: languageCode,
     });
   }
   if (!isPersonalMessage && !userData.groupChatIds.includes(groupChatId)) {
