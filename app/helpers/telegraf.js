@@ -2,6 +2,8 @@ import _ from 'lodash';
 
 import ActionData from '../classes/ActionData.js';
 
+import { cleanObject } from './documentsHelper.js';
+
 export function isAction(ctx) {
   return Boolean(ctx?.update?.callback_query);
 }
@@ -32,7 +34,7 @@ export function getCtxData(ctx) {
 
   const isPersonalMessage = (chatId === groupChatId && groupChatId > 0);
 
-  return {
+  return cleanObject({
     chatId,
     firstName,
     lastName,
@@ -42,15 +44,15 @@ export function getCtxData(ctx) {
     groupUsername,
     languageCode,
     isPersonalMessage,
-  };
+  });
 }
 
 export function getActionData(ctx) {
   const actionData = new ActionData(ctx);
 
-  return {
+  return cleanObject({
     ownerId: actionData.getParam('ow:'),
     languageCodeSettings: actionData.getParam('cd:'),
     page: actionData.getParam('pg:'),
-  };
+  });
 }
