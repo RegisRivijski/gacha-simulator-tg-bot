@@ -15,6 +15,9 @@ export function getContext(ctx) {
 }
 
 export function getChatId(ctx) {
+  if (isAction(ctx)) {
+    return _.result(getContext(ctx), 'message.chat.id');
+  }
   return _.result(getContext(ctx), 'chat.id') || ctx.state.chatId;
 }
 
