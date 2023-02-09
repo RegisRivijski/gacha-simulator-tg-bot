@@ -17,25 +17,25 @@ export function validateAndUpdateUserData({
 
   const fieldsForUpdateUserData = [];
 
-  if (userData.firstName !== firstName) {
+  if (firstName && userData.firstName !== firstName) {
     fieldsForUpdateUserData.push({
       key: 'firstName',
       value: firstName,
     });
   }
-  if (userData.lastName !== lastName) {
+  if (lastName && userData.lastName !== lastName) {
     fieldsForUpdateUserData.push({
       key: 'lastName',
       value: lastName,
     });
   }
-  if (userData.username !== username) {
+  if (username && userData.username !== username) {
     fieldsForUpdateUserData.push({
       key: 'username',
       value: username,
     });
   }
-  if (!isPersonalMessage && !userData.groupChatIds.includes(groupChatId)) {
+  if (groupChatId && !isPersonalMessage && !userData.groupChatIds.includes(groupChatId)) {
     fieldsForUpdateUserData.push({
       key: 'groupChatIds',
       value: [...userData.groupChatIds, groupChatId],
@@ -43,15 +43,15 @@ export function validateAndUpdateUserData({
     addGroupChat(groupChatId, { groupTitle, groupUsername })
       .catch((e) => {
         console.error('[ERROR] 1. helpers/dataValidator.js addGroupChat:', e.message);
-        console.error('[ERROR] 2.', groupChatId, { groupTitle, groupUsername });
+        console.error(' ---->  2.', groupChatId, { groupTitle, groupUsername });
       });
   }
 
-  if (fieldsForUpdateUserData.length) {
+  if (chatId && fieldsForUpdateUserData.length) {
     updateUserData(chatId, fieldsForUpdateUserData)
       .catch((e) => {
         console.error('[ERROR] 1. helpers/dataValidator.js updateUserData:', e.message);
-        console.error('[ERROR] 2.', chatId, fieldsForUpdateUserData);
+        console.error(' ---->  2.', chatId, fieldsForUpdateUserData);
       });
   }
 }

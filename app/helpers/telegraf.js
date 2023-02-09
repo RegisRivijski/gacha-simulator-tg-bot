@@ -27,7 +27,7 @@ export function getCtxData(ctx) {
   const chatId = _.result(context, 'from.id');
   const firstName = _.result(context, 'from.first_name');
   const lastName = _.result(context, 'from.last_name');
-  const username = _.result(context, 'username');
+  const username = _.result(context, 'from.username');
 
   const groupChatId = _.result(context, 'chat.id');
   const groupTitle = _.result(context, 'chat.title');
