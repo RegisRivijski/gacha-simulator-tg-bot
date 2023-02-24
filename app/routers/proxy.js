@@ -31,6 +31,10 @@ export const usersInventory = {
 export const usersPrimogems = {
   route: '/tg-bot/user/<%= chatId %>/primogems',
 };
+export const usersReferral = {
+  route: '/tg-bot/user/<%= chatId %>/referral',
+};
+
 export const usersWish = {
   route: '/tg-bot/user/<%= chatId %>/wish',
 };

@@ -38,6 +38,7 @@ export default new Composer()
   .action(/^hi /, proxyRequest(proxyRoutes.usersHistory))
 
   .command('primogems', proxyRequest(proxyRoutes.usersPrimogems))
+  .command('referral', proxyRequest(proxyRoutes.usersReferral))
 
   .use(replyModule)
   .use(dataValidator);
