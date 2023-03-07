@@ -5,6 +5,11 @@ export default {
     name: packageJson.name,
     version: packageJson.version,
   },
+  telegramBotApi: {
+    protocol: process.env.TELEGRAM_BOT_API_PROTOCOL,
+    host: process.env.TELEGRAM_BOT_API_HOST,
+    port: process.env.TELEGRAM_BOT_API_PORT,
+  },
   server: {
     enable: process.env.BULL_BOARD_ENABLE === 'true',
     port: process.env.BULL_BOARD_PORT || 3000,

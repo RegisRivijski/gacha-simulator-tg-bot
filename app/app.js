@@ -6,7 +6,11 @@ import { client } from './modules/redis.js';
 
 export default function main() {
   client.connect();
-  const bot = new Telegraf(config.bot.API_TOKEN);
+  const bot = new Telegraf(config.bot.API_TOKEN, {
+    telegram: {
+      apiRoot: `${config.telegramBotApi.protocol}//${config.telegramBotApi.host}:${config.telegramBotApi.port}`,
+    },
+  });
   bot.use(events);
   bot.startPolling();
 
