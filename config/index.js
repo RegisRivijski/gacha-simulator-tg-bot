@@ -12,6 +12,7 @@ export default {
   },
   server: {
     enable: process.env.BULL_BOARD_ENABLE === 'true',
+    ip: process.env.SERVER_IP,
     port: process.env.BULL_BOARD_PORT || 3000,
   },
   languages: {

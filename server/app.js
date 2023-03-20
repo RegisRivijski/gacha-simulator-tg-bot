@@ -31,6 +31,6 @@ export default function main() {
 
   app.listen(config.server.port, () => {
     console.info(`Running on ${config.server.port}...`);
-    console.info(`For the @bull-board UI, open http://localhost:${config.server.port}${basePath}`);
+    console.info(`For the @bull-board UI, open http://${config.server.ip}:${config.server.port}${basePath}`);
   });
 }
