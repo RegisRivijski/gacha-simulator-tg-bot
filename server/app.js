@@ -13,7 +13,7 @@ import {
 import config from '../config/index.js';
 
 export default function main() {
-  const basePath = '/admin/queues';
+  const { basePath } = config.server;
   const serverAdapter = new ExpressAdapter();
   const app = express();
 

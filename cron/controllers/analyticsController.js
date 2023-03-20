@@ -18,6 +18,8 @@ export function congifugureNotification(bot) {
       const allCount = users.length + groups.length;
       let counter = 0;
 
+      console.info('[INFO] congifugureNotification allUsersCount:', allCount);
+
       for await (const id of users) {
         _.set(bot, 'state.chatId', id);
         await replyByTemplate({
