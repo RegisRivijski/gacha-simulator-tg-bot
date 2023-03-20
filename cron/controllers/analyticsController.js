@@ -23,12 +23,8 @@ export function congifugureNotification(bot) {
         await replyByTemplate({
           ctx: bot,
         })
-          .then(() => {
-            gachaSimulatorManager.setActiveTelegramBot(TELEGRAM_USER_TYPE, id, true);
-          })
-          .catch(() => {
-            gachaSimulatorManager.setActiveTelegramBot(TELEGRAM_USER_TYPE, id, false);
-          });
+          .then(() => gachaSimulatorManager.setActiveTelegramBot(TELEGRAM_USER_TYPE, id, true))
+          .catch(() => gachaSimulatorManager.setActiveTelegramBot(TELEGRAM_USER_TYPE, id, false));
         counter += 1;
         job.progress(progress(counter, allCount));
       }
@@ -38,12 +34,8 @@ export function congifugureNotification(bot) {
         await replyByTemplate({
           ctx: bot,
         })
-          .then(() => {
-            gachaSimulatorManager.setActiveTelegramBot(TELEGRAM_GROUP_TYPE, id, true);
-          })
-          .catch(() => {
-            gachaSimulatorManager.setActiveTelegramBot(TELEGRAM_GROUP_TYPE, id, false);
-          });
+          .then(() => gachaSimulatorManager.setActiveTelegramBot(TELEGRAM_GROUP_TYPE, id, true))
+          .catch(() => gachaSimulatorManager.setActiveTelegramBot(TELEGRAM_GROUP_TYPE, id, false));
         counter += 1;
         job.progress(progress(counter, allCount));
       }
