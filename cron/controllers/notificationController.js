@@ -18,6 +18,8 @@ export function primogemsLimit(bot) {
       const allUsersDataIds = await cronGachaSimulatorManager.getPrimogemsLimit();
       const allUsersCount = allUsersDataIds.length;
 
+      console.info('[INFO] primogemsLimit allUsersCount:', allUsersCount);
+
       for await (const [i, chatId] of allUsersDataIds.entries()) {
         const userData = await cronGachaSimulatorManager.getUserData(chatId)
           .catch((e) => {
