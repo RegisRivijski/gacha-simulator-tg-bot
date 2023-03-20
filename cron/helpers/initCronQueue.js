@@ -18,16 +18,20 @@ export default function initCronQueue({
   });
 
   for (const cron of crons) {
-    queue.add({
+    const cronConfig = {
       id: cron.id,
       type: cron.type,
       schedule: cron.schedule,
-    }, {
+    };
+
+    const cronData = {
       jobId: cron.id,
       removeOnComplete: true,
       repeat: {
         cron: cron.schedule,
       },
-    });
+    };
+
+    queue.add(cronConfig, cronData);
   }
 }
