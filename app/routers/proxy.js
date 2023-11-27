@@ -1,5 +1,8 @@
 export const start = {
-  route: '/tg-bot/user/<%= chatId %>/start',
+  route: '/tg-bot/user/<%= chatId %>/start?startData=<%= startData %>',
+  defaultData: {
+    startData: '',
+  },
 };
 export const help = {
   route: '/tg-bot/user/<%= chatId %>/help',

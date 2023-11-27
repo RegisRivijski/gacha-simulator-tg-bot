@@ -37,6 +37,13 @@ export function getCtxData(ctx) {
 
   const isPersonalMessage = (chatId === groupChatId && groupChatId > 0);
 
+  const commandData = _.result(context, 'text');
+
+  let startData = '';
+  if (commandData?.includes('/start')) {
+    startData = commandData.replace('/start ', '');
+  }
+
   return cleanObject({
     chatId,
     firstName,
@@ -47,6 +54,7 @@ export function getCtxData(ctx) {
     groupUsername,
     languageCode,
     isPersonalMessage,
+    startData,
   });
 }
 
