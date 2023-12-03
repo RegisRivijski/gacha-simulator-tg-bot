@@ -28,6 +28,12 @@ export const usersHistory = {
     page: 0,
   },
 };
+export const usersLeaderboard = {
+  route: '/tg-bot/user/<%= chatId %>/leaderboard/<%= page %>',
+  defaultData: {
+    page: 0,
+  },
+}
 export const usersInventory = {
   route: '/tg-bot/user/<%= chatId %>/inventory',
 };

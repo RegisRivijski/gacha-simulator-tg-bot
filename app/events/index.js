@@ -37,6 +37,9 @@ export default new Composer()
   .command('history', proxyRequest(proxyRoutes.usersHistory))
   .action(/^hi /, proxyRequest(proxyRoutes.usersHistory))
 
+  .command('leaderboard', proxyRequest(proxyRoutes.usersLeaderboard))
+  .action(/^le/, proxyRequest(proxyRoutes.usersLeaderboard))
+
   .command('primogems', proxyRequest(proxyRoutes.usersPrimogems))
   .command('referral', proxyRequest(proxyRoutes.usersReferral))
 
