@@ -33,6 +33,7 @@ export default new Composer()
   .action(/^pr /, proxyRequest(proxyRoutes.usersProfile))
   .action(/^get_pr /, proxyRequest(proxyRoutes.usersProfileGetPrimogems))
   .action(/^chng_pr /, proxyRequest(proxyRoutes.usersProfileChangeBanner))
+  .action(/^new_pr /, proxyRequest(proxyRoutes.usersProfileWithoutUpdate))
 
   .command('history', proxyRequest(proxyRoutes.usersHistory))
   .action(/^hi /, proxyRequest(proxyRoutes.usersHistory))

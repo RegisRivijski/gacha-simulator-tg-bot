@@ -16,6 +16,9 @@ export const settings = {
 export const usersProfile = {
   route: '/tg-bot/user/<%= chatId %>/profile',
 };
+export const usersProfileWithoutUpdate = {
+  route: '/tg-bot/user/<%= chatId %>/profile?withoutUpdateMessage=true',
+};
 export const usersProfileGetPrimogems = {
   route: '/tg-bot/user/<%= chatId %>/profile?getPrimogems=true',
 };
