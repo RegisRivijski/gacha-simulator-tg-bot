@@ -10,6 +10,12 @@ export default function proxyRequest(routeData) {
   return async (ctx, next) => {
     const ctxData = getCtxData(ctx);
     const actionData = getActionData(ctx);
+
+    if (actionData?.ownerId && Number(actionData.ownerId) !== Number(ctxData.chatId)) {
+      ctx.answerCbQuery('This is not your message.');
+      return null;
+    }
+
     const route = _.template(routeData.route)({
       ...routeData?.defaultData,
       ...ctxData,
