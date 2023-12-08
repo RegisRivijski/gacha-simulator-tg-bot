@@ -46,6 +46,12 @@ export const usersPrimogems = {
 export const usersReferral = {
   route: '/tg-bot/user/<%= chatId %>/referral',
 };
+export const usersPromocode = {
+  route: '/tg-bot/user/<%= chatId %>/promocode?promocode=<%= promocode %>',
+  defaultData: {
+    promocode: '',
+  },
+}
 
 export const usersWish = {
   route: '/tg-bot/user/<%= chatId %>/wish',

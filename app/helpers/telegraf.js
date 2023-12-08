@@ -41,7 +41,12 @@ export function getCtxData(ctx) {
 
   let startData = '';
   if (commandData?.includes('/start')) {
-    startData = commandData.replace('/start ', '');
+    startData = commandData.replace('/start', '').trim();
+  }
+
+  let promocode = '';
+  if (commandData?.includes('/promocode')) {
+    promocode = commandData.replace('/promocode', '').trim();
   }
 
   return cleanObject({
@@ -55,6 +60,7 @@ export function getCtxData(ctx) {
     languageCode,
     isPersonalMessage,
     startData,
+    promocode,
   });
 }
 

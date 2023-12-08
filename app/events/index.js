@@ -43,6 +43,7 @@ export default new Composer()
 
   .command('primogems', proxyRequest(proxyRoutes.usersPrimogems))
   .command('referral', proxyRequest(proxyRoutes.usersReferral))
+  .command('promocode', proxyRequest(proxyRoutes.usersPromocode))
 
   .use(replyModule)
   .use(dataValidator);

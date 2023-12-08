@@ -6,7 +6,16 @@ import delay from './delayHelper.js';
 export function makeMarkupTelegrafButtons(mediaMarkupButtons) {
   return mediaMarkupButtons.map((item) => {
     if (Array.isArray(item)) {
-      return item.map((btn) => Markup.button.callback(btn.message, btn.data));
+      return item.map((btn) => {
+        if (btn.type === 'url') {
+          return Markup.button.url(btn.message, btn.data)
+        }
+        return Markup.button.callback(btn.message, btn.data)
+      });
+    }
+
+    if (item.type === 'url') {
+      return Markup.button.url(item.message, item.data);
     }
     return Markup.button.callback(item.message, item.data);
   });
