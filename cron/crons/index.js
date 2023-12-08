@@ -18,12 +18,6 @@ export default [
     process: (bot) => notificationController.primogemsLimit(bot),
   },
   {
-    id: HOW_MANY_USER_CAN_BUY_CRON_NAME,
-    type: NOTIFICATION_CRON_TYPE,
-    schedule: '10 15 */3 * *',
-    process: (bot) => notificationController.howManyUserCanBuy(bot),
-  },
-  {
     id: CONFIGURE_NOTIFICATION_CRON_NAME,
     type: ANALYTICS_CRON_TYPE,
     schedule: '0 0 * * *',

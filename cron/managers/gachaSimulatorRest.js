@@ -8,11 +8,6 @@ export function getPrimogemsLimit() {
     .then(({ data }) => data);
 }
 
-export function getHowManyUserCanBuy() {
-  return reqInstance.get(`${gachaSimulatorRestOrigin}/cron/how-many-user-can-buy`)
-    .then(({ data }) => data);
-}
-
 export function getAllUsersAndGroupChats() {
   return reqInstance.get(`${gachaSimulatorRestOrigin}/analytics/users-and-group-chats`)
     .then(({ data }) => data);
