@@ -37,7 +37,13 @@ export function getCtxData(ctx) {
 
   const isPersonalMessage = (chatId === groupChatId && groupChatId > 0);
 
-  const commandData = _.result(context, 'text');
+  let commandData = _.result(context, 'text');
+
+  if (commandData) {
+    commandData = commandData
+      .replace('@genshinGachaSimulatorBot', '')
+      .replace('@genshinGachaSimulatorEnBot', '');
+  }
 
   let startData = '';
   if (commandData?.includes('/start')) {
