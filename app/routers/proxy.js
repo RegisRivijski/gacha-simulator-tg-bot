@@ -8,9 +8,10 @@ export const help = {
   route: '/tg-bot/user/<%= chatId %>/help',
 };
 export const settings = {
-  route: '/tg-bot/user/<%= chatId %>/settings?languageCodeSettings=<%= languageCodeSettings %>',
+  route: '/tg-bot/user/<%= chatId %>/settings?languageCodeSettings=<%= languageCodeSettings %>&gifEnable=<%= gifEnable %>',
   defaultData: {
     languageCodeSettings: '',
+    gifEnable: '',
   },
 };
 export const usersProfile = {

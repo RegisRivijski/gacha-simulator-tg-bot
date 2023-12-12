@@ -20,11 +20,11 @@ export default new Composer()
   .command('settings', proxyRequest(proxyRoutes.settings))
   .action(/^sett /, proxyRequest(proxyRoutes.settings))
 
-  .command('wish', rateLimiters.wishRateLimiter, proxyRequest(proxyRoutes.usersWish))
-  .command('wish10', rateLimiters.wishRateLimiter, proxyRequest(proxyRoutes.usersWishX10))
+  .command('wish', proxyRequest(proxyRoutes.usersWish))
+  .command('wish10', proxyRequest(proxyRoutes.usersWishX10))
 
-  .action(/^wi /, rateLimiters.wishRateLimiter, proxyRequest(proxyRoutes.usersWish))
-  .action(/^10wi /, rateLimiters.wishRateLimiter, proxyRequest(proxyRoutes.usersWishX10))
+  .action(/^wi /, proxyRequest(proxyRoutes.usersWish))
+  .action(/^10wi /, proxyRequest(proxyRoutes.usersWishX10))
 
   .command('inventory', proxyRequest(proxyRoutes.usersInventory))
   .action(/^in /, proxyRequest(proxyRoutes.usersInventory))

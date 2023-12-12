@@ -77,5 +77,6 @@ export function getActionData(ctx) {
     ownerId: actionData.getParam('ow:'),
     languageCodeSettings: actionData.getParam('cd:'),
     page: actionData.getParam('pg:'),
+    gifEnable: actionData.getParam('gif:'),
   });
 }
