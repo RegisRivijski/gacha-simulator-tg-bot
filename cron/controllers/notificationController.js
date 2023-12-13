@@ -30,7 +30,7 @@ export function primogemsLimit(bot) {
 
         _.set(bot, 'state.chatId', chatId);
 
-        if (additionalData?.primogemsGetMaxLimit) {
+        if (userData?.notificationsEnable && additionalData?.primogemsGetMaxLimit) {
           const messageTemplate = await cronGachaSimulatorManager.getTranslate(userData.languageCode, 'cron.maxPrimogems')
             .catch((e) => {
               console.error('[ERROR] CRON notificationController primogemsLimit getTranslate:', e.message);

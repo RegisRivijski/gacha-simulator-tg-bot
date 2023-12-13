@@ -78,5 +78,6 @@ export function getActionData(ctx) {
     languageCodeSettings: actionData.getParam('cd:'),
     page: actionData.getParam('pg:'),
     gifEnable: actionData.getParam('gif:'),
+    notificationsEnable: actionData.getParam('not:')
   });
 }
