@@ -15,7 +15,7 @@ export function advertisementWorker(bot) {
     try {
       const activeAdvertisement = await cronGachaSimulatorManager.getActiveAdvertisements();
 
-      if (!activeAdvertisement?.delivered) {
+      if (activeAdvertisement?.message !== undefined) {
         let activeUsers = [];
         let activeGroups = [];
         let counter = 0;
