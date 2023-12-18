@@ -1,14 +1,16 @@
 import {
   NOTIFICATION_CRON_TYPE,
   ANALYTICS_CRON_TYPE,
+  ADVERTISEMENT_CRON_TYPE,
 
   PRIMOGEMS_LIMIT_CRON_NAME,
-  HOW_MANY_USER_CAN_BUY_CRON_NAME,
   CONFIGURE_NOTIFICATION_CRON_NAME,
+  ADVERTISEMENT_CRON_NAME,
 } from '../constants/index.js';
 
 import * as notificationController from '../controllers/notificationController.js';
 import * as analyticsController from '../controllers/analyticsController.js';
+import * as advertisementsControllers from '../controllers/advertisementController.js';
 
 export default [
   {
@@ -22,5 +24,11 @@ export default [
     type: ANALYTICS_CRON_TYPE,
     schedule: '0 0 * * *',
     process: (bot) => analyticsController.congifugureNotification(bot),
+  },
+  {
+    id: ADVERTISEMENT_CRON_NAME,
+    type: ADVERTISEMENT_CRON_TYPE,
+    schedule: '* * * * *',
+    process: (bot) => advertisementsControllers.advertisementWorker(bot),
   },
 ];

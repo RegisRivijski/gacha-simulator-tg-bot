@@ -27,3 +27,25 @@ export function setActiveTelegramBot(type, id, isActive) {
   return reqInstance.post(`${gachaSimulatorRestOrigin}/analytics/active-telegram-bot`, { type, id, isActive })
     .then(({ data }) => data);
 }
+
+export function getActiveAdvertisements() {
+  return reqInstance.get(`${gachaSimulatorRestOrigin}/cron/active-advertisement`)
+    .then(({ data }) => data);
+}
+
+export function getAllActiveUsers() {
+  return reqInstance.get(`${gachaSimulatorRestOrigin}/cron/active-users`)
+    .then(({ data }) => data);
+}
+
+export function getAllActiveGroups() {
+  return reqInstance.get(`${gachaSimulatorRestOrigin}/cron/active-groups`)
+    .then(({ data }) => data);
+}
+
+export function changeAdvertisement(advertisementData) {
+  return reqInstance.put(`${gachaSimulatorRestOrigin}/cron/advertisements`, {
+    advertisementData,
+  })
+    .then(({ data }) => data);
+}

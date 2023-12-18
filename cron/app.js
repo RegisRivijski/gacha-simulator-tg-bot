@@ -1,6 +1,7 @@
 import {
   NOTIFICATION_CRON_TYPE,
   ANALYTICS_CRON_TYPE,
+  ADVERTISEMENT_CRON_TYPE,
 } from './constants/index.js';
 
 import crons from './crons/index.js';
@@ -19,4 +20,9 @@ export default function main(bot) {
     queue: queues.analyticsQueue,
     crons: crons.filter((cron) => cron.type === ANALYTICS_CRON_TYPE),
   });
+  initCronQueue({
+    bot,
+    queue: queues.advertisementsQueue,
+    crons: crons.filter((cron) => cron.type === ADVERTISEMENT_CRON_TYPE),
+  })
 }
