@@ -31,8 +31,8 @@ export function advertisementWorker(bot) {
         const allIds = [...activeUsers, ...activeGroups];
         const allCount = allIds.length;
 
-        for await (const { chatId, groupChatId } of allIds) {
-          _.set(bot, 'state.chatId', chatId || groupChatId);
+        for await (const chatId of allIds) {
+          _.set(bot, 'state.chatId', chatId);
           await replyByTemplate({
             ctx: bot,
             messageTemplate: activeAdvertisement.message,
