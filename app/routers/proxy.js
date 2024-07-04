@@ -8,11 +8,12 @@ export const help = {
   route: '/tg-bot/user/<%= chatId %>/help',
 };
 export const settings = {
-  route: '/tg-bot/user/<%= chatId %>/settings?languageCodeSettings=<%= languageCodeSettings %>&gifEnable=<%= gifEnable %>&notificationsEnable=<%= notificationsEnable %>',
+  route: '/tg-bot/user/<%= chatId %>/settings?languageCodeSettings=<%= languageCodeSettings %>&gifEnable=<%= gifEnable %>&notificationsEnable=<%= notificationsEnable %>&clearState=<%= clearState %>',
   defaultData: {
     languageCodeSettings: '',
     gifEnable: '',
     notificationsEnable: '',
+    clearState: '',
   },
 };
 export const usersProfile = {
