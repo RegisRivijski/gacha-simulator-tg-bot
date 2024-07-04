@@ -79,6 +79,6 @@ export function getActionData(ctx) {
     page: actionData.getParam('pg:'),
     gifEnable: actionData.getParam('gif:'),
     notificationsEnable: actionData.getParam('not:'),
-    removeAllItems: actionData.getParam('clear:'),
+    clearState: actionData.getParam('clear:'),
   });
 }
