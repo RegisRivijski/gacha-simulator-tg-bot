@@ -1,14 +1,10 @@
 # Gacha Simulator Telegram Bot
 
-The gacha-simulator-tg-bot is a Telegram bot that serves as a front-end interface for the gacha-simulator-rest microservice. It handles user interactions via Telegram commands, sends requests to the REST API, and delivers responses back to users. This bot is designed to simulate gacha mechanics, manage user profiles, and provide additional functionalities like leaderboard and referral systems.
+The gacha-simulator-tg-bot is a Telegram bot that serves as a front-end interface for the gacha-simulator-rest microservice. It handles user interactions via Telegram commands, sends requests to the REST API, and delivers responses back to users.
 
 Features
 
   - Telegram Integration: Fully integrated with the Telegram API for seamless user interaction.
-  - Gacha Simulation: Allows users to perform single and ten-pull gacha draws.
-  - Profile Management: Enables users to view and manage their in-game profiles directly through the bot.
-  - Inventory and History: Provides access to user inventory and gacha history.
-  - Leaderboard: Displays the leaderboard rankings.
   - Rate Limiting: Prevents spam and abuse through rate-limited commands.
   - Cron Jobs: Handles automated notifications, analytics, and advertisement updates.
   - Proxy Requests: Sends all relevant requests to the gacha-simulator-rest microservice for data processing.
