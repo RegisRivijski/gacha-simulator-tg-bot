@@ -12,16 +12,23 @@ import initCronQueue from './helpers/initCronQueue.js';
 export default async function main(bot) {
   await agenda.start();
 
-  initCronQueue({
+  const notificationCrons = crons.filter((cron) => cron.type === NOTIFICATION_CRON_TYPE);
+  const analyticCrons = crons.filter((cron) => cron.type === ANALYTICS_CRON_TYPE);
+  const advertisementCrons = crons.filter((cron) => cron.type === ADVERTISEMENT_CRON_TYPE);
+
+  await initCronQueue({
     bot,
-    crons: crons.filter((cron) => cron.type === NOTIFICATION_CRON_TYPE),
+    crons: notificationCrons,
   });
-  initCronQueue({
+  console.info('Crons type=NOTIFICATION_CRON_TYPE are initialized!');
+  await initCronQueue({
     bot,
-    crons: crons.filter((cron) => cron.type === ANALYTICS_CRON_TYPE),
+    crons: analyticCrons,
   });
-  initCronQueue({
+  console.info('Crons type=ANALYTICS_CRON_TYPE are initialized!');
+  await initCronQueue({
     bot,
-    crons: crons.filter((cron) => cron.type === ADVERTISEMENT_CRON_TYPE),
+    crons: advertisementCrons,
   });
+  console.info('Crons type=ADVERTISEMENT_CRON_TYPE are initialized!');
 }

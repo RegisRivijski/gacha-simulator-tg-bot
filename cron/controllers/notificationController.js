@@ -19,7 +19,7 @@ export function primogemsLimit(bot) {
 
       console.info('[INFO] primogemsLimit allUsersCount:', allUsersCount);
 
-      for await (const [i, chatId] of allUsersDataIds.entries()) {
+      for await (const chatId of allUsersDataIds) {
         const userData = await cronGachaSimulatorManager.getUserData(chatId)
           .catch((e) => {
             console.error('[ERROR] CRON notificationController primogemsLimit getUserData:', e.message);
