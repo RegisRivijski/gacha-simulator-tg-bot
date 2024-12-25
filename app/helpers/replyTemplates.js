@@ -101,12 +101,12 @@ export function message({
 }) {
   return ctx.telegram.sendMessage(
     getChatId(ctx),
+    messageTemplate,
     {
-      text: messageTemplate,
+      ...makeMarkupInlineKeyboard(media?.mediaMarkupButtons),
       parse_mode: 'HTML',
       disable_web_page_preview: true,
     },
-    { ...makeMarkupInlineKeyboard(media?.mediaMarkupButtons) },
   );
 }
 

@@ -18,5 +18,10 @@ export default function main() {
   process.once('SIGINT', () => bot.stop('SIGINT'));
   process.once('SIGTERM', () => bot.stop('SIGTERM'));
 
+  console.table({
+    Application: config.application.name,
+    Version: config.application.version,
+  });
+
   return bot;
 }
