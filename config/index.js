@@ -10,12 +10,6 @@ export default {
     host: process.env.TELEGRAM_BOT_API_HOST,
     port: process.env.TELEGRAM_BOT_API_PORT,
   },
-  server: {
-    enable: process.env.BULL_BOARD_ENABLE === 'true',
-    ip: process.env.SERVER_IP,
-    port: process.env.BULL_BOARD_PORT || 3000,
-    basePath: '/',
-  },
   languages: {
     defaultLangCode: process.env.DEFAULT_LANGUAGE_CODE,
   },
@@ -28,6 +22,12 @@ export default {
       host: process.env.REDIS_HOSTNAME,
       port: process.env.REDIS_PORT,
       // password: process.env.REDIS_PASSWORD,
+    },
+    mongodbAgenda: {
+      url: process.env.MONGODB_GENSHIN_AGENDA_URI,
+      options: {
+        dbName: 'agenda',
+      },
     },
   },
   rest: {

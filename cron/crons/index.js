@@ -14,19 +14,19 @@ import * as advertisementsControllers from '../controllers/advertisementControll
 
 export default [
   {
-    id: PRIMOGEMS_LIMIT_CRON_NAME,
+    name: PRIMOGEMS_LIMIT_CRON_NAME,
     type: NOTIFICATION_CRON_TYPE,
     schedule: '15 7 * * *',
     process: (bot) => notificationController.primogemsLimit(bot),
   },
   {
-    id: CONFIGURE_NOTIFICATION_CRON_NAME,
+    name: CONFIGURE_NOTIFICATION_CRON_NAME,
     type: ANALYTICS_CRON_TYPE,
     schedule: '0 0 * * *',
     process: (bot) => analyticsController.congifugureNotification(bot),
   },
   {
-    id: ADVERTISEMENT_CRON_NAME,
+    name: ADVERTISEMENT_CRON_NAME,
     type: ADVERTISEMENT_CRON_TYPE,
     schedule: '* * * * *',
     process: (bot) => advertisementsControllers.advertisementWorker(bot),

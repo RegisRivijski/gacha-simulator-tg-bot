@@ -4,25 +4,24 @@ import {
   ADVERTISEMENT_CRON_TYPE,
 } from './constants/index.js';
 
+import agenda from './modules/agenda.js';
+
 import crons from './crons/index.js';
 import initCronQueue from './helpers/initCronQueue.js';
 
-import * as queues from './modules/queue.js';
+export default async function main(bot) {
+  await agenda.start();
 
-export default function main(bot) {
   initCronQueue({
     bot,
-    queue: queues.notificationQueue,
     crons: crons.filter((cron) => cron.type === NOTIFICATION_CRON_TYPE),
   });
   initCronQueue({
     bot,
-    queue: queues.analyticsQueue,
     crons: crons.filter((cron) => cron.type === ANALYTICS_CRON_TYPE),
   });
   initCronQueue({
     bot,
-    queue: queues.advertisementsQueue,
     crons: crons.filter((cron) => cron.type === ADVERTISEMENT_CRON_TYPE),
-  })
+  });
 }

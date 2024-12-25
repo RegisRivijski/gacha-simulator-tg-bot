@@ -8,8 +8,6 @@ import replyByTemplate from '../../app/helpers/replyTemplatesHelper.js';
 
 import * as cronGachaSimulatorManager from '../managers/gachaSimulatorRest.js';
 
-import { progress } from '../helpers/utils.js';
-
 export function advertisementWorker(bot) {
   return async (job, done) => {
     try {
@@ -18,7 +16,6 @@ export function advertisementWorker(bot) {
       if (activeAdvertisement?.message !== undefined) {
         let activeUsers = [];
         let activeGroups = [];
-        let counter = 0;
 
         if (activeAdvertisement?.users) {
           activeUsers = await cronGachaSimulatorManager.getAllActiveUsers();
@@ -29,7 +26,6 @@ export function advertisementWorker(bot) {
         }
 
         const allIds = [...activeUsers, ...activeGroups];
-        const allCount = allIds.length;
 
         for await (const chatId of allIds) {
           _.set(bot, 'state.chatId', chatId);
@@ -44,8 +40,7 @@ export function advertisementWorker(bot) {
             .catch((e) => {
               console.error('[ERROR] CRON notificationController primogemsLimit replyByTemplate:', e.message);
             });
-          counter += 1;
-          job.progress(progress(counter, allCount));
+          job.touch();
         }
 
         await cronGachaSimulatorManager.changeAdvertisement({
@@ -53,7 +48,6 @@ export function advertisementWorker(bot) {
           delivered: true,
         });
       }
-
     } catch (e) {
       console.error('[FATAL ERROR] CRON notificationController primogemsLimit:', e.message);
     } finally {

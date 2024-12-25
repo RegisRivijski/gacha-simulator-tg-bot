@@ -5,7 +5,6 @@ import {
 } from '../../app/constants/index.js';
 
 import replyByTemplate from '../../app/helpers/replyTemplatesHelper.js';
-import { progress } from '../helpers/utils.js';
 
 import * as cronGachaSimulatorManager from '../managers/gachaSimulatorRest.js';
 
@@ -49,7 +48,7 @@ export function primogemsLimit(bot) {
               console.error('[ERROR] CRON notificationController primogemsLimit replyByTemplate:', e.message);
             });
         }
-        job.progress(progress(i, allUsersCount));
+        job.touch();
       }
     } catch (e) {
       console.error('[FATAL ERROR] CRON notificationController primogemsLimit:', e.message);
