@@ -18,6 +18,8 @@ export default new Composer()
   .command('start', proxyRequest(proxyRoutes.start))
   .command('help', proxyRequest(proxyRoutes.help))
   .command('settings', proxyRequest(proxyRoutes.settings))
+  .command('support', proxyRequest(proxyRoutes.support))
+  .command('terms', proxyRequest(proxyRoutes.terms))
   .action(/^sett /, proxyRequest(proxyRoutes.settings))
 
   .command('wish', proxyRequest(proxyRoutes.usersWish))

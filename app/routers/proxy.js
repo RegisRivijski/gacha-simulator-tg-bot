@@ -8,6 +8,7 @@ export const help = {
   route: '/tg-bot/user/<%= chatId %>/help',
 };
 export const settings = {
+  // eslint-disable-next-line max-len
   route: '/tg-bot/user/<%= chatId %>/settings?languageCodeSettings=<%= languageCodeSettings %>&gifEnable=<%= gifEnable %>&notificationsEnable=<%= notificationsEnable %>&clearState=<%= clearState %>',
   defaultData: {
     languageCodeSettings: '',
@@ -16,6 +17,13 @@ export const settings = {
     clearState: '',
   },
 };
+export const support = {
+  route: '/tg-bot/user/<%= chatId %>/support',
+};
+export const terms = {
+  route: '/tg-bot/user/<%= chatId %>/terms',
+};
+
 export const usersProfile = {
   route: '/tg-bot/user/<%= chatId %>/profile',
 };
@@ -39,7 +47,7 @@ export const usersLeaderboard = {
   defaultData: {
     page: 0,
   },
-}
+};
 export const usersInventory = {
   route: '/tg-bot/user/<%= chatId %>/inventory',
 };
@@ -54,7 +62,7 @@ export const usersPromocode = {
   defaultData: {
     promocode: '',
   },
-}
+};
 
 export const usersWish = {
   route: '/tg-bot/user/<%= chatId %>/wish',
