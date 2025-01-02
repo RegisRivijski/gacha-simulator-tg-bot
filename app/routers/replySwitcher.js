@@ -6,7 +6,7 @@ import {
 import { isAction } from '../helpers/telegraf.js';
 import * as templates from '../helpers/replyTemplates.js';
 
-export default [
+export const repliesArray = [
   {
     condition: () => true,
     template: templates.replyWithChatActionTyping,
@@ -16,6 +16,14 @@ export default [
     condition: ({ ctx, media }) => isAction(ctx) && media?.mediaMarkupButtonsRemoveAfterClick,
     template: templates.editMessageReplyMarkup,
     makeBreak: false,
+  },
+  {
+    condition: ({
+      ctx,
+      media,
+    }) => isAction(ctx) && media?.invoice,
+    template: templates.replyWithInvoice,
+    makeBreak: true,
   },
   {
     condition: ({
@@ -64,3 +72,20 @@ export default [
     makeBreak: true,
   },
 ];
+
+export default function replyByTemplate(templateParams) {
+  const promises = [];
+  for (const { condition, template, makeBreak } of repliesArray) {
+    const sendTemplate = Boolean(condition(templateParams));
+    if (sendTemplate) {
+      promises.push(
+        template(templateParams),
+      );
+
+      if (makeBreak) {
+        break;
+      }
+    }
+  }
+  return Promise.all(promises);
+}

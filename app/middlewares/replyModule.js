@@ -1,7 +1,7 @@
-import replyByTemplate from '../helpers/replyTemplatesHelper.js';
+import replySwitcher from '../routers/replySwitcher.js';
 
 export default async function replyModule(ctx, next) {
-  replyByTemplate({
+  replySwitcher({
     ctx,
     ...ctx.state.data,
   })

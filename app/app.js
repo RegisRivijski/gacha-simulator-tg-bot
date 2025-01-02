@@ -9,6 +9,7 @@ export default function main() {
   const bot = new Telegraf(config.bot.API_TOKEN, {
     telegram: {
       apiRoot: `${config.telegramBotApi.protocol}//${config.telegramBotApi.host}:${config.telegramBotApi.port}`,
+      testEnv: config.environment.test,
     },
   });
   bot.use(events);

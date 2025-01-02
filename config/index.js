@@ -5,6 +5,10 @@ export default {
     name: packageJson.name,
     version: packageJson.version,
   },
+  environment: {
+    name: process.env.NODE_ENV,
+    test: process.env.NODE_ENV === 'dev',
+  },
   telegramBotApi: {
     protocol: process.env.TELEGRAM_BOT_API_PROTOCOL,
     host: process.env.TELEGRAM_BOT_API_HOST,

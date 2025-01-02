@@ -4,7 +4,7 @@ import {
   MEDIA_TYPE_PHOTO,
 } from '../../app/constants/index.js';
 
-import replyByTemplate from '../../app/helpers/replyTemplatesHelper.js';
+import replySwitcher from '../../app/routers/replySwitcher.js';
 
 import * as cronGachaSimulatorManager from '../managers/gachaSimulatorRest.js';
 
@@ -29,7 +29,7 @@ export function advertisementWorker(bot) {
 
         for await (const chatId of allIds) {
           _.set(bot, 'state.chatId', chatId);
-          await replyByTemplate({
+          await replySwitcher({
             ctx: bot,
             messageTemplate: activeAdvertisement.message,
             media: {
@@ -38,7 +38,7 @@ export function advertisementWorker(bot) {
             },
           })
             .catch((e) => {
-              console.error('[ERROR] CRON notificationController primogemsLimit replyByTemplate:', e.message);
+              console.error('[ERROR] CRON notificationController primogemsLimit replySwitcher:', e.message);
             });
           job.touch();
         }

@@ -24,3 +24,10 @@ export function addGroupChat(groupChatId, { groupTitle, groupUsername }) {
   })
     .then(({ data }) => data);
 }
+
+export function createSuccessfulPayment(successfulPayment) {
+  return reqInstance.post(`${gachaSimulatorRestOrigin}/payments/successful`, {
+    successfulPayment,
+  })
+    .then(({ data }) => data);
+}

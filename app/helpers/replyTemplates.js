@@ -8,9 +8,9 @@ export function makeMarkupTelegrafButtons(mediaMarkupButtons) {
     if (Array.isArray(item)) {
       return item.map((btn) => {
         if (btn.type === 'url') {
-          return Markup.button.url(btn.message, btn.data)
+          return Markup.button.url(btn.message, btn.data);
         }
-        return Markup.button.callback(btn.message, btn.data)
+        return Markup.button.callback(btn.message, btn.data);
       });
     }
 
@@ -129,4 +129,8 @@ export function editMessageReplyMarkup({ ctx }) {
 
 export function replyWithChatActionTyping({ ctx }) {
   return ctx.telegram.sendChatAction(getChatId(ctx), 'typing');
+}
+
+export function replyWithInvoice({ ctx, media }) {
+  return ctx.telegram.sendInvoice(getChatId(ctx), media.invoice);
 }

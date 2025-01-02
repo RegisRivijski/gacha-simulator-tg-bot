@@ -4,7 +4,7 @@ import {
   MEDIA_TYPE_STICKER,
 } from '../../app/constants/index.js';
 
-import replyByTemplate from '../../app/helpers/replyTemplatesHelper.js';
+import replySwitcher from '../../app/routers/replySwitcher.js';
 
 import * as cronGachaSimulatorManager from '../managers/gachaSimulatorRest.js';
 
@@ -36,7 +36,7 @@ export function primogemsLimit(bot) {
               return '';
             });
 
-          await replyByTemplate({
+          await replySwitcher({
             ctx: bot,
             messageTemplate,
             media: {

@@ -7,11 +7,14 @@ import errorHandler from '../middlewares/errorHandler.js';
 
 import * as proxyRoutes from '../routers/proxy.js';
 import * as rateLimiters from '../middlewares/rateLimiters.js';
+import * as paymentsProcessor from '../middlewares/payments.js';
 
 export default new Composer()
   .use(errorHandler)
+  .use(paymentsProcessor.successfulPaymentCatcher)
   .use(rateLimiters.ignoreOldMessages)
   .use(rateLimiters.commandRateLimiter)
+  .use(paymentsProcessor.paymentsCatcher)
 
   .action('blank', (ctx) => ctx.answerCbQuery('This button is blank.'))
 
@@ -46,6 +49,9 @@ export default new Composer()
   .command('primogems', proxyRequest(proxyRoutes.usersPrimogems))
   .command('referral', proxyRequest(proxyRoutes.usersReferral))
   .command('promocode', proxyRequest(proxyRoutes.usersPromocode))
+
+  .command('shop', proxyRequest(proxyRoutes.usersShop))
+  .action(/^sbi /, proxyRequest(proxyRoutes.usersShopBuyItem))
 
   .use(replyModule)
   .use(dataValidator);

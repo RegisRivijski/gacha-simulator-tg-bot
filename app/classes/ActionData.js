@@ -6,7 +6,8 @@ export default class ActionData {
   #dataArray = [];
 
   constructor(ctx) {
-    this.#callbackData = _.result(ctx, 'update.callback_query.data', '');
+    this.#callbackData = _.result(ctx, 'update.callback_query.data', '')
+      || _.result(ctx, 'update.pre_checkout_query.invoice_payload', '');
     if (this.#callbackData) {
       this.#dataArray = this.#callbackData.split(' ');
     }

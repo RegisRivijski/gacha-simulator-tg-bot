@@ -33,6 +33,9 @@ export default function proxyRequest(routeData) {
         console.error('[ERROR] proxyRequest', route, ':', e.message);
         throw e;
       });
-    await next();
+
+    if (next) {
+      await next();
+    }
   };
 }

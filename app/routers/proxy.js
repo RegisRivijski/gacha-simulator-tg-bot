@@ -70,3 +70,19 @@ export const usersWish = {
 export const usersWishX10 = {
   route: '/tg-bot/user/<%= chatId %>/wish-x10',
 };
+
+export const usersShop = {
+  route: '/tg-bot/user/<%= chatId %>/shop',
+};
+export const usersShopBuyItem = {
+  route: '/tg-bot/user/<%= chatId %>/shop/<%= shopItemId %>',
+  defaultData: {
+    shopItemId: 0,
+  },
+};
+export const usersProceedPayments = {
+  route: '/tg-bot/user/<%= chatId %>/shop/<%= shopItemId %>/proceed',
+  defaultData: {
+    shopItemId: 0,
+  },
+};

@@ -8,21 +8,36 @@ export function isAction(ctx) {
   return Boolean(ctx?.update?.callback_query);
 }
 
+export function isPayment(ctx) {
+  return Boolean(ctx?.update?.pre_checkout_query);
+}
+
 export function getContext(ctx) {
-  return !ctx?.update?.callback_query
-    ? ctx?.update?.message
-    : ctx?.update?.callback_query;
+  if (ctx?.update?.callback_query) {
+    return ctx.update.callback_query;
+  }
+  if (ctx?.update?.pre_checkout_query) {
+    return ctx.update.pre_checkout_query;
+  }
+  if (ctx?.update?.message) {
+    return ctx.update.message;
+  }
+  return {};
 }
 
 export function getChatId(ctx) {
   if (isAction(ctx)) {
     return _.result(getContext(ctx), 'message.chat.id');
   }
+  if (isPayment(ctx)) {
+    return _.result(getContext(ctx), 'from.id');
+  }
   return _.result(getContext(ctx), 'chat.id') || ctx.state.chatId;
 }
 
 export function getCtxData(ctx) {
   const context = getContext(ctx);
+  const isPaymentAction = isPayment(ctx);
 
   const chatId = _.result(context, 'from.id');
   const firstName = _.result(context, 'from.first_name');
@@ -55,6 +70,11 @@ export function getCtxData(ctx) {
     promocode = commandData.replace('/promocode', '').trim();
   }
 
+  let preCheckoutQuery = {};
+  if (isPaymentAction) {
+    preCheckoutQuery = ctx?.update?.pre_checkout_query;
+  }
+
   return cleanObject({
     chatId,
     firstName,
@@ -67,6 +87,8 @@ export function getCtxData(ctx) {
     isPersonalMessage,
     startData,
     promocode,
+    isPaymentAction,
+    preCheckoutQuery,
   });
 }
 
@@ -80,5 +102,6 @@ export function getActionData(ctx) {
     gifEnable: actionData.getParam('gif:'),
     notificationsEnable: actionData.getParam('not:'),
     clearState: actionData.getParam('clear:'),
+    shopItemId: actionData.getParam('sid:'),
   });
 }
