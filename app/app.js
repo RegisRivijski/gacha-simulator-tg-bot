@@ -1,7 +1,7 @@
 import { Telegraf } from 'telegraf';
 
 import config from '../config/index.js';
-import events from './events/index.js';
+import events from './routers/index.js';
 import { client } from './modules/redis.js';
 
 export default function main() {

@@ -103,5 +103,6 @@ export function getActionData(ctx) {
     notificationsEnable: actionData.getParam('not:'),
     clearState: actionData.getParam('clear:'),
     shopItemId: actionData.getParam('sid:'),
+    premiumTypeId: actionData.getParam('tprm:'),
   });
 }

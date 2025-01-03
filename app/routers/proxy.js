@@ -86,3 +86,23 @@ export const usersProceedPayments = {
     shopItemId: 0,
   },
 };
+
+export const usersPremium = {
+  route: '/tg-bot/user/<%= chatId %>/premium',
+};
+export const usersPremiumBuy = {
+  route: '/tg-bot/user/<%= chatId %>/premium/<%= premiumTypeId %>',
+  defaultData: {
+    premiumTypeId: 0,
+  },
+};
+export const usersProceedPaymentsPremium = {
+  route: '/tg-bot/user/<%= chatId %>/premium/<%= premiumTypeId %>/proceed',
+  defaultData: {
+    premiumTypeId: 0,
+  },
+};
+
+export const usersDaily = {
+  route: '/tg-bot/user/<%= chatId %>/daily',
+};

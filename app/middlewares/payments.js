@@ -8,11 +8,17 @@ import * as gachaSimulatorRest from '../managers/gachaSimulatorRest.js';
 export async function paymentsCatcher(ctx, next) {
   const {
     isPaymentAction,
+    preCheckoutQuery,
   } = telegraf.getCtxData(ctx);
 
   if (isPaymentAction) {
-    await proxyRequest(proxyRoutes.usersProceedPayments)(ctx);
-    await ctx.answerPreCheckoutQuery(true);
+    if (preCheckoutQuery.invoice_payload.includes('sid')) {
+      await proxyRequest(proxyRoutes.usersProceedPayments)(ctx);
+      await ctx.answerPreCheckoutQuery(true);
+    } else if (preCheckoutQuery.invoice_payload.includes('tprm')) {
+      await proxyRequest(proxyRoutes.usersProceedPaymentsPremium)(ctx);
+      await ctx.answerPreCheckoutQuery(true);
+    }
   }
 
   await next();

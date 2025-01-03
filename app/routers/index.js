@@ -5,7 +5,7 @@ import dataValidator from '../middlewares/dataValidator.js';
 import proxyRequest from '../middlewares/proxyRequest.js';
 import errorHandler from '../middlewares/errorHandler.js';
 
-import * as proxyRoutes from '../routers/proxy.js';
+import * as proxyRoutes from './proxy.js';
 import * as rateLimiters from '../middlewares/rateLimiters.js';
 import * as paymentsProcessor from '../middlewares/payments.js';
 
@@ -52,6 +52,11 @@ export default new Composer()
 
   .command('shop', proxyRequest(proxyRoutes.usersShop))
   .action(/^sbi /, proxyRequest(proxyRoutes.usersShopBuyItem))
+
+  .command('premium', proxyRequest(proxyRoutes.usersPremium))
+  .action(/^prm /, proxyRequest(proxyRoutes.usersPremiumBuy))
+
+  .command('daily', proxyRequest(proxyRoutes.usersDaily))
 
   .use(replyModule)
   .use(dataValidator);
