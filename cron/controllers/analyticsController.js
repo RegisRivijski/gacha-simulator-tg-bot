@@ -15,6 +15,8 @@ export function congifugureNotification(bot) {
       const { users, groups } = await gachaSimulatorManager.getAllUsersAndGroupChats();
 
       const allCount = users.length + groups.length;
+      let activeUsers = 0;
+      let activeGroups = 0;
 
       console.info('[INFO] congifugureNotification allUsersCount:', allCount);
 
@@ -23,7 +25,10 @@ export function congifugureNotification(bot) {
         await replySwitcher({
           ctx: bot,
         })
-          .then(() => gachaSimulatorManager.setActiveTelegramBot(TELEGRAM_USER_TYPE, id, true))
+          .then(() => {
+            activeUsers += 1;
+            return gachaSimulatorManager.setActiveTelegramBot(TELEGRAM_USER_TYPE, id, true);
+          })
           .catch(() => gachaSimulatorManager.setActiveTelegramBot(TELEGRAM_USER_TYPE, id, false));
         job.touch();
       }
@@ -33,10 +38,15 @@ export function congifugureNotification(bot) {
         await replySwitcher({
           ctx: bot,
         })
-          .then(() => gachaSimulatorManager.setActiveTelegramBot(TELEGRAM_GROUP_TYPE, id, true))
+          .then(() => {
+            activeGroups += 1;
+            return gachaSimulatorManager.setActiveTelegramBot(TELEGRAM_GROUP_TYPE, id, true);
+          })
           .catch(() => gachaSimulatorManager.setActiveTelegramBot(TELEGRAM_GROUP_TYPE, id, false));
         job.touch();
       }
+
+      console.info('[INFO] congifugureNotification activeUsers:', activeUsers, 'activeGroups:', activeGroups);
     } catch (e) {
       console.error('[FATAL ERROR] CRON analyticsController congifugureCronNotification:', e.message);
     } finally {
