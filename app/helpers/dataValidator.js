@@ -47,6 +47,13 @@ export function validateAndUpdateUserData({
       });
   }
 
+  if (userData?.isBlocked) {
+    fieldsForUpdateUserData.push({
+      key: 'isBlocked',
+      value: false,
+    });
+  }
+
   if (chatId && fieldsForUpdateUserData.length) {
     updateUserData(chatId, fieldsForUpdateUserData)
       .catch((e) => {
