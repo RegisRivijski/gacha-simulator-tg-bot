@@ -1,0 +1,1 @@
+export const GACHA_SIMULATOR_REST_CACHE_SEC = 120;

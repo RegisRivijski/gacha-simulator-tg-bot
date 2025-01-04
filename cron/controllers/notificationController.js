@@ -3,10 +3,17 @@ import _ from 'lodash';
 import {
   MEDIA_TYPE_STICKER,
 } from '../../app/constants/index.js';
+import {
+  GACHA_SIMULATOR_REST_CACHE_SEC,
+} from '../../app/constants/cache.js';
 
 import replySwitcher from '../../app/routers/replySwitcher.js';
 
+import cacheWrapper from '../../app/helpers/cacheWrapper.js';
+
 import * as cronGachaSimulatorManager from '../managers/gachaSimulatorRest.js';
+
+const cronGachaSimulatorManagerCache = cacheWrapper(cronGachaSimulatorManager, GACHA_SIMULATOR_REST_CACHE_SEC);
 
 export function primogemsLimit(bot) {
   return async (job, done) => {
@@ -19,35 +26,26 @@ export function primogemsLimit(bot) {
 
       console.info('[INFO] primogemsLimit allUsersCount:', allUsersCount);
 
-      for await (const chatId of allUsersDataIds) {
-        const userData = await cronGachaSimulatorManager.getUserData(chatId)
-          .catch((e) => {
-            console.error('[ERROR] CRON notificationController primogemsLimit getUserData:', e.message);
-            return {};
-          });
-        const { additionalData } = userData;
-
+      for await (const { chatId, languageCode } of allUsersDataIds) {
         _.set(bot, 'state.chatId', chatId);
 
-        if (userData?.notificationsEnable && additionalData?.primogemsGetMaxLimit) {
-          const messageTemplate = await cronGachaSimulatorManager.getTranslate(userData.languageCode, 'cron.maxPrimogems')
-            .catch((e) => {
-              console.error('[ERROR] CRON notificationController primogemsLimit getTranslate:', e.message);
-              return '';
-            });
+        const messageTemplate = await cronGachaSimulatorManagerCache.getTranslate(languageCode, 'cron.maxPrimogems')
+          .catch((e) => {
+            console.error('[ERROR] CRON notificationController primogemsLimit getTranslate:', e.message);
+            return '';
+          });
 
-          await replySwitcher({
-            ctx: bot,
-            messageTemplate,
-            media: {
-              media,
-              mediaType,
-            },
-          })
-            .catch((e) => {
-              console.error('[ERROR] CRON notificationController primogemsLimit replyByTemplate:', e.message);
-            });
-        }
+        await replySwitcher({
+          ctx: bot,
+          messageTemplate,
+          media: {
+            media,
+            mediaType,
+          },
+        })
+          .catch((e) => {
+            console.error('[ERROR] CRON notificationController primogemsLimit replyByTemplate:', e.message);
+          });
         job.touch();
       }
     } catch (e) {
