@@ -47,7 +47,7 @@ export function validateAndUpdateUserData({
       });
   }
 
-  if (userData?.isBlocked) {
+  if (isPersonalMessage && userData?.isBlocked) {
     fieldsForUpdateUserData.push({
       key: 'isBlocked',
       value: false,
