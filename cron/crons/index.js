@@ -22,8 +22,8 @@ export default [
   {
     name: CONFIGURE_NOTIFICATION_CRON_NAME,
     type: ANALYTICS_CRON_TYPE,
-    schedule: '0 0 * * *',
-    process: (bot) => analyticsController.congifugureNotification(bot),
+    schedule: '0 3 * * *',
+    process: (bot) => analyticsController.configureNotification(bot),
   },
   {
     name: ADVERTISEMENT_CRON_NAME,

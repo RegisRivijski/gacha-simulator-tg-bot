@@ -9,7 +9,7 @@ import replySwitcher from '../../app/routers/replySwitcher.js';
 
 import * as gachaSimulatorManager from '../managers/gachaSimulatorRest.js';
 
-export function congifugureNotification(bot) {
+export function configureNotification(bot) {
   return async (job, done) => {
     try {
       const { users, groups } = await gachaSimulatorManager.getAllUsersAndGroupChats();
@@ -18,7 +18,7 @@ export function congifugureNotification(bot) {
       let activeUsers = 0;
       let activeGroups = 0;
 
-      console.info('[INFO] congifugureNotification allUsersCount:', allCount);
+      console.info('[INFO] configureNotification allUsersCount:', allCount);
 
       for await (const id of users) {
         _.set(bot, 'state.chatId', id);
